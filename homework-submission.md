@@ -1,7 +1,7 @@
 # 第十週作業：用 LLM Wiki 做一份教學 HTML 簡報
 
 > **繳交標題格式範例**：`學校 學號 系級 姓名 總體經濟學 LLM Wiki 與教學簡報`
-> **GitHub 專案儲存庫**：[https://github.com/sd94031187/hw-w10](https://github.com/sd94031187/hw-w10)
+> **GitHub 專案儲存庫**：[https://github.com/sd94031187/hw10](https://github.com/sd94031187/hw10)
 
 ---
 
