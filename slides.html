@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>如何看懂財經新聞的三大指標？｜總體經濟學入門導讀</title>
+  <style>
+    :root {
+      --bg-outer: #f2ece3;
+      --bg-slide: #fbf9f5;
+      --bg-card: #f4efe7;
+      --text-ink: #24211d;
+      --text-body: #524d46;
+      --text-muted: #8c857b;
+      --accent-terra: #9e4733;
+      --accent-navy: #2d4659;
+      --border-hairline: #e2dcd1;
+      --border-strong: #c9c0b3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "PingFang TC", "Hiragino Sans CNS", "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-outer);
+      color: var(--text-ink);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Minimal Header */
+    header {
+      height: 54px;
+      background-color: var(--bg-outer);
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 44px;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-family: "Songti TC", "Noto Serif TC", Georgia, serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text-body);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .edit-badge {
+      display: none;
+      font-family: "PingFang TC", sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent-terra);
+      background: rgba(158, 71, 51, 0.1);
+      border: 1px solid rgba(158, 71, 51, 0.35);
+      padding: 2px 9px;
+      border-radius: 3px;
+    }
+
+    body.editing .edit-badge {
+      display: inline-block;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button.nav-btn {
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      color: var(--text-ink);
+      padding: 5px 13px;
+      border-radius: 3px;
+      font-size: 12.5px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    button.nav-btn:hover {
+      background: var(--bg-card);
+      border-color: var(--text-body);
+    }
+
+    button.nav-btn.active-edit {
+      background: var(--accent-terra);
+      color: #fff;
+      border-color: var(--accent-terra);
+    }
+
+    button.nav-btn.save-btn {
+      display: none;
+      border-color: var(--accent-navy);
+      color: var(--accent-navy);
+      font-weight: 600;
+    }
+
+    body.editing button.nav-btn.save-btn {
+      display: inline-block;
+    }
+
+    .page-counter {
+      font-family: Georgia, serif;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      min-width: 60px;
+      text-align: center;
+    }
+
+    /* Slide Stage */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 26px 44px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide {
+      background-color: var(--bg-slide);
+      border: 1px solid var(--border-hairline);
+      box-shadow: 0 12px 36px rgba(36, 33, 29, 0.04);
+      width: 100%;
+      max-width: 1060px;
+      height: 100%;
+      max-height: 675px;
+      padding: 54px 74px 36px 74px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      display: flex;
+      animation: fadeSlide 0.2s ease;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0.3; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Editable Outline Styling when Edit Mode is ON */
+    body.editing [contenteditable="true"] {
+      outline: 1px dashed rgba(158, 71, 51, 0.35);
+      outline-offset: 3px;
+      border-radius: 2px;
+      cursor: text;
+    }
+
+    body.editing [contenteditable="true"]:focus {
+      outline: 2px solid var(--accent-terra);
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Slide Header */
+    .section-tag {
+      font-size: 12.5px;
+      letter-spacing: 0.08em;
+      color: var(--accent-terra);
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    h1 {
+      font-family: "Songti TC", "Noto Serif TC", Georgia, serif;
+      font-size: 31px;
+      font-weight: 700;
+      color: var(--text-ink);
+      line-height: 1.35;
+      margin-bottom: 18px;
+    }
+
+    .core-idea {
+      font-size: 16.5px;
+      line-height: 1.8;
+      color: var(--text-body);
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--border-hairline);
+      margin-bottom: 26px;
+    }
+
+    .core-idea strong {
+      color: var(--text-ink);
+      font-weight: 600;
+    }
+
+    /* Generous Content Layouts */
+    .split-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .split-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      align-items: start;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      padding: 24px 28px;
+      border-radius: 3px;
+    }
+
+    .card-label {
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--accent-terra);
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    h3 {
+      font-family: "Songti TC", "Noto Serif TC", Georgia, serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text-ink);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    p, li {
+      font-size: 15.5px;
+      line-height: 1.8;
+      color: var(--text-body);
+    }
+
+    ul, ol {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: var(--text-ink);
+      font-weight: 600;
+    }
+
+    /* Clean Formula Box */
+    .formula {
+      font-family: "Songti TC", Georgia, serif;
+      font-size: 17px;
+      color: var(--text-ink);
+      background-color: var(--bg-slide);
+      border: 1px solid var(--border-hairline);
+      border-left: 3px solid var(--accent-terra);
+      padding: 12px 18px;
+      margin: 12px 0;
+    }
+
+    /* Subtle Callout Note */
+    .insight-note {
+      background-color: var(--bg-card);
+      border-left: 3px solid var(--accent-navy);
+      padding: 14px 20px;
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--text-body);
+      margin-top: 16px;
+    }
+
+    .insight-note.terra {
+      border-left-color: var(--accent-terra);
+    }
+
+    /* Booktabs Minimalist Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      margin-top: 4px;
+    }
+
+    th {
+      border-top: 1.5px solid var(--text-ink);
+      border-bottom: 1px solid var(--text-ink);
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-ink);
+    }
+
+    td {
+      border-bottom: 1px solid var(--border-hairline);
+      padding: 12px 14px;
+      color: var(--text-body);
+      line-height: 1.65;
+      vertical-align: top;
+    }
+
+    /* Minimal Interactive Widget */
+    .calc-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 12px 0;
+      font-size: 14.5px;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--accent-terra);
+    }
+
+    .calc-result {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--border-strong);
+      border-bottom: 1px solid var(--border-strong);
+      padding: 14px 0;
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    .calc-result .big-num {
+      font-family: Georgia, serif;
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--accent-terra);
+    }
+
+    .calc-result .small-lbl {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Slide Footer (Wiki Source Mapping) */
+    .slide-footer {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-hairline);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .wiki-tag {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11.5px;
+      color: var(--text-body);
+      background: var(--bg-card);
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-left: 4px;
+    }
+
+    /* TOC Overlay */
+    #toc-overlay {
+      position: fixed;
+      inset: 54px 0 0 0;
+      background: rgba(242, 236, 227, 0.98);
+      z-index: 30;
+      display: none;
+      padding: 40px 60px;
+      overflow-y: auto;
+    }
+
+    #toc-overlay.open {
+      display: block;
+    }
+
+    .toc-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 36px;
+      margin-top: 16px;
+    }
+
+    .toc-link {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-hairline);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: var(--text-ink);
+    }
+
+    .toc-link:hover {
+      color: var(--accent-terra);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-title">
+      <span>總體經濟學入門導讀</span>
+      <span class="edit-badge">編輯模式已開啟：點擊畫面任何文字即可直接刪除或修改</span>
+    </div>
+    <div class="nav-controls">
+      <button class="nav-btn" id="edit-toggle-btn" onclick="toggleEditMode()">✎ 編輯文字</button>
+      <button class="nav-btn save-btn" onclick="downloadEditedHTML()">💾 儲存下載 HTML</button>
+      <button class="nav-btn" onclick="toggleTOC()">目錄</button>
+      <button class="nav-btn" onclick="prevSlide()">← 上一頁</button>
+      <span class="page-counter" id="page-counter">1 / 16</span>
+      <button class="nav-btn" onclick="nextSlide()">下一頁 →</button>
+    </div>
+  </header>
+
+  <div id="toc-overlay">
+    <div class="toc-wrap">
+      <h3>投影片目錄（點擊直接跳轉）</h3>
+      <div class="toc-grid" id="toc-grid"></div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- 第 1 頁｜封面 -->
+    <section class="slide active" data-title="01. 封面：如何看懂財經新聞的三大指標？">
+      <div style="margin: auto 0;">
+        <span class="section-tag">總體經濟學入門導讀</span>
+        <h1 style="font-size: 38px; margin-bottom: 20px;">如何看懂財經新聞的三大指標？</h1>
+        <p style="font-size: 17.5px; max-width: 780px; line-height: 1.85; color: var(--text-body); margin-bottom: 40px;">
+          就算完全沒學過經濟學，我們每天打開新聞也會看到「GDP 成長率保三」、「失業率下降」、「CPI 通膨升溫」與「央行升息」。這份講義將以最貼近日常生活的方式，帶你一次讀懂這三個數字背後的真實意義。
+        </p>
+
+        <div class="split-3">
+          <div class="card">
+            <span class="card-label">第一部分</span>
+            <h3>總產出 (GDP)</h3>
+            <p style="font-size: 14.5px;">一個國家總共賺了多少錢？為什麼買新房子不算「消費」？</p>
+          </div>
+          <div class="card">
+            <span class="card-label">第二部分</span>
+            <h3>失業率</h3>
+            <p style="font-size: 14.5px;">沒工作的人都算失業嗎？為什麼失業率下降有時反而是警訊？</p>
+          </div>
+          <div class="card">
+            <span class="card-label">第三部分</span>
+            <h3>物價通膨與利率</h3>
+            <p style="font-size: 14.5px;">為什麼美國聯準會愛看 PCE 勝過 CPI？扣掉通膨後你的存款有賺錢嗎？</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[overview]]</span> <span class="wiki-tag">[[macroeconomic-time-horizons]]</span></div>
+        <div>資料來源：Chap-2.pdf ~ Chap-6.pdf</div>
+      </div>
+    </section>
+
+    <!-- 第 2 頁｜總覽 -->
+    <section class="slide" data-title="02. 總覽：三個體溫計與時間維度">
+      <div>
+        <span class="section-tag">01 · 核心架構</span>
+        <h1>診斷國家經濟的三個體溫計與時間維度</h1>
+
+        <p class="core-idea">
+          就像醫生看診會量體溫、血壓與心率，經濟學家診斷一個國家的經濟健康度時，核心看三個指標：<strong>總產出（GDP）</strong>、<strong>失業率</strong> 與 <strong>通貨膨脹率</strong>。而在分析經濟時，我們會依時間長短區分三個維度：
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 18%;">時間維度</th>
+              <th style="width: 22%;">時間長度</th>
+              <th>誰決定經濟好壞？（白話直覺）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>短期</strong></td>
+              <td>1 ～ 2 年內</td>
+              <td><strong>由「總需求（買氣）」決定</strong>：價格與薪水短期內來不及調整，大家敢不敢花錢、企業願不願意投資，直接決定今年的景氣。</td>
+            </tr>
+            <tr>
+              <td><strong>中期</strong></td>
+              <td>數年（3 ～ 5 年）</td>
+              <td><strong>由「總供給（產能）」決定</strong>：價格與薪水充分調整後，經濟會回到它原本的真實實力（取決於有多少工廠設備、技術與勞工）。</td>
+            </tr>
+            <tr>
+              <td><strong>長期</strong></td>
+              <td>數十年以上</td>
+              <td><strong>由「創新、教育與制度」決定</strong>：一國幾十年後的富裕程度，取決於科技研發能力、國民儲蓄率、教育品質與政府治理。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[macroeconomic-time-horizons]]</span> <span class="wiki-tag">[[source-blanchard-chap-2]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf (pp. 2–3, 63–66)</div>
+      </div>
+    </section>
+
+    <!-- 第 3 頁｜GDP 是什麼？ -->
+    <section class="slide" data-title="03. 指標一：GDP 是什麼？為什麼只算最終商品？">
+      <div>
+        <span class="section-tag">02 · 總產出與國民所得</span>
+        <h1>GDP 是什麼？為什麼只算「最終商品」？</h1>
+
+        <p class="core-idea">
+          <strong>國內生產毛額（GDP）</strong> 是一國在特定期間內，所生產之所有「<strong>最終財貨與服務</strong>」的市場價值。為了避免重複計算，生產過程中被消耗掉的「<strong>中間財</strong>」不會單獨重複計入 GDP。
+        </p>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">生活案例</span>
+            <h3>鋼鐵廠與汽車廠的故事</h3>
+            <p>假設這個國家只有兩家公司：</p>
+            <ul style="margin-top: 8px;">
+              <li><strong>鋼鐵廠</strong>開採鐵礦，煉出價值 <strong>$100</strong> 的鋼鐵賣給汽車廠。</li>
+              <li><strong>汽車廠</strong>買進這 $100 的鋼鐵，加工製作成一輛汽車，以 <strong>$200</strong> 賣給消費者。</li>
+            </ul>
+            <p style="margin-top: 10px;">請問這個國家的 GDP 是 $300（$100 + $200）還是 <strong>$200</strong>？</p>
+          </div>
+
+          <div class="card">
+            <span class="card-label">三面等價</span>
+            <h3>答案是 $200（三種算法結果相同）</h3>
+            <ul>
+              <li><strong>最終商品法</strong>：只算最後賣給消費者的汽車價值 = <strong>$200</strong>（鋼鐵價值已經包含在車價裡了）。</li>
+              <li><strong>附加價值法</strong>：鋼鐵廠創造 $100 + 汽車廠新創造的價值（$200 − $100）= <strong>$200</strong>。</li>
+              <li><strong>所得面法</strong>：兩家工廠發出去的員工薪水（$150）+ 老闆賺的利潤（$50）= <strong>$200</strong>。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[gdp-and-national-income-accounting]]</span> <span class="wiki-tag">[[source-blanchard-chap-2]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf (pp. 4–11)</div>
+      </div>
+    </section>
+
+    <!-- 第 4 頁｜誰買走了 GDP？ -->
+    <section class="slide" data-title="04. 指標一：誰買走了 GDP？台美結構差異">
+      <div>
+        <span class="section-tag">03 · GDP 的支出組成</span>
+        <h1>誰買走了我們的 GDP？買新房竟然不算「消費」</h1>
+
+        <p class="core-idea">
+          從買方（支出面）來看，GDP 由四大部門組成：<strong>民間消費（C）</strong>、<strong>國內投資（I）</strong>、<strong>政府支出（G）</strong> 與 <strong>淨出口（出口 X − 進口 IM）</strong>。但經濟學對「投資」與「政府支出」的定義，跟日常用語很不一樣：
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 18%;">組成項目</th>
+              <th style="width: 12%;">美國占比</th>
+              <th style="width: 12%;">台灣占比</th>
+              <th>初學者最容易誤解的生活冷知識（含台灣主計總處規範）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>民間消費 (C)</strong></td>
+              <td><strong>68%</strong></td>
+              <td>~50%</td>
+              <td>吃飯、買衣服、看電影都算 C；但<strong>一般人「買新房子」不算消費 C，而是算進住宅投資 I！</strong></td>
+            </tr>
+            <tr>
+              <td><strong>國內投資 (I)</strong></td>
+              <td>17.5%</td>
+              <td>~25%</td>
+              <td>經濟學的 I 指的是「買廠房、機器設備、軟體與新屋」（不是買股票）。<strong>在台灣，政府蓋基礎建設也算在 I！</strong></td>
+            </tr>
+            <tr>
+              <td><strong>政府支出 (G)</strong></td>
+              <td>17.2%</td>
+              <td>~14%</td>
+              <td>政府付給公務員的薪水與日常採購。<strong>不包含勞健保、育兒津貼或失業補助（移轉支付沒生產新東西，不計入 G）</strong>。</td>
+            </tr>
+            <tr>
+              <td><strong>淨出口 (X − IM)</strong></td>
+              <td>-3%</td>
+              <td><strong>+13%</strong></td>
+              <td>美國是內需消費大國（長期貿易逆差）；<strong>台灣則是出口導向經濟體（出口占 GDP 高達 65% 以上）</strong>。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[gdp-and-national-income-accounting]]</span> <span class="wiki-tag">[[source-blanchard-chap-3]]</span></div>
+        <div>資料來源：raw/Chap-3.pdf (pp. 4–8)</div>
+      </div>
+    </section>
+
+    <!-- 第 5 頁｜消費乘數與節儉矛盾 -->
+    <section class="slide" data-title="05. 指標一：消費的連鎖放大效應與「節儉矛盾」">
+      <div>
+        <span class="section-tag">04 · 乘數效果與節儉矛盾</span>
+        <h1>為什麼你多花 100 元，社會能增加超過 100 元的所得？</h1>
+
+        <p class="core-idea">
+          因為<strong>「一個人的支出，就是另一個人的所得」</strong>。當每個人賺到 100 元會拿其中固定比例（稱為<strong>邊際消費傾向 MPC</strong>）去消費，這筆錢就會在社會上一輪接一輪傳遞下去，形成<strong>乘數效果</strong>。
+        </p>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">互動試算</span>
+            <h3>體驗 100 萬元支出的連鎖放大效果</h3>
+            <div class="calc-row">
+              <span>大家每多賺 $100 願意花掉的比例 (MPC)：</span>
+              <input type="range" id="mpc-range" min="0.2" max="0.9" step="0.1" value="0.6" oninput="calcMult()" />
+              <strong id="mpc-disp" style="width:45px; text-align:right;">60%</strong>
+            </div>
+
+            <div class="calc-result">
+              <div>
+                <div class="big-num" id="m-times">2.5 倍</div>
+                <div class="small-lbl">放大乘數</div>
+              </div>
+              <div>
+                <div class="big-num" id="m-total">250 萬</div>
+                <div class="small-lbl">社會總共增加的 GDP</div>
+              </div>
+              <div>
+                <div class="big-num" id="m-extra">+150 萬</div>
+                <div class="small-lbl">連鎖誘發的額外消費</div>
+              </div>
+            </div>
+            <p id="m-detail" style="font-size:13.5px; color:var(--text-muted); margin-top:10px; line-height:1.6;"></p>
+          </div>
+
+          <div class="card">
+            <span class="card-label">反直覺現象</span>
+            <h3>節儉的矛盾：如果大家都拼命存錢會怎樣？</h3>
+            <p>對個人來說，「少花錢、多存錢」是美德；但在總體經濟中，當<strong>所有人同時縮減消費（例如 2008 雷曼破產恐慌）</strong>：</p>
+            <ul style="margin-top:8px;">
+              <li>店家賣不出東西 ➔ 營收與員工薪水大減（GDP 萎縮）。</li>
+              <li><strong>節儉矛盾</strong>：大家原本想多存錢，卻因為整體所得萎縮、甚至拖累企業投資，導致<strong>最後整個社會存下來的總金額不但沒增加，反而變得更少！</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[goods-market-and-multiplier]]</span> <span class="wiki-tag">[[source-blanchard-chap-3]]</span></div>
+        <div>資料來源：raw/Chap-3.pdf (pp. 10–27, 38–44)</div>
+      </div>
+    </section>
+
+    <!-- 第 6 頁｜名目 GDP vs 實質 GDP -->
+    <section class="slide" data-title="06. 指標一：名目 GDP vs. 實質 GDP">
+      <div>
+        <span class="section-tag">05 · 消除物價假象</span>
+        <h1>經濟真的有成長，還是只是東西變貴了？</h1>
+
+        <p class="core-idea">
+          如果今年全國生產的汽車數量跟去年一模一樣，但車價漲了一倍，帳面上的產值就會翻倍。為了區分「價格上漲」與「真正產量增加」，經濟學家將 GDP 分為<strong>名目</strong>與<strong>實質</strong>兩種：
+        </p>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">名目 GDP</span>
+            <h3>用「當年價格」乘上「當年產量」</h3>
+            <div class="formula">名目 GDP = ∑ 當年價格 × 當年產量</div>
+            <p>同時受到「產量增加」與「物價上漲」兩個因素影響。從 1960 年到 2018 年，美國的名目 GDP 足足成長了 <strong>38 倍</strong>。</p>
+          </div>
+
+          <div class="card">
+            <span class="card-label">實質 GDP</span>
+            <h3>固定用「基期年價格」乘上「當年產量」</h3>
+            <div class="formula">實質 GDP = ∑ 基期年價格 × 當年產量</div>
+            <p>把價格鎖定在某個基準年，只看真實產量的變化。1960 到 2018 年美國實質 GDP 其實只成長了 <strong>5.7 倍</strong>（其餘都是通膨造成的假象）！</p>
+          </div>
+        </div>
+
+        <div class="insight-note">
+          <strong>如何閱讀財經新聞？</strong> 新聞上報的「今年經濟成長率 3.2%」，永遠指的是扣掉物價影響後的<strong>「實質 GDP 成長率」</strong>。
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[gdp-and-national-income-accounting]]</span> <span class="wiki-tag">[[source-blanchard-chap-2]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf (pp. 16–20)</div>
+      </div>
+    </section>
+
+    <!-- 第 7 頁｜定基法 vs 連鎖法 -->
+    <section class="slide" data-title="07. 指標一：定基法 vs. 連鎖法">
+      <div>
+        <span class="section-tag">06 · 實質 GDP 的衡量演進</span>
+        <h1>為什麼電腦越來越便宜，卻讓傳統 GDP 算法失靈？</h1>
+
+        <p class="core-idea">
+          既然實質 GDP 要「固定某一年（基期年）的價格」，那選 2000 年當基期，跟選 2020 年當基期，算出來的經濟成長率會一樣嗎？答案是<strong>完全不一樣</strong>——而且科技進步越快，誤差就越大！
+        </p>
+
+        <div class="split-2">
+          <div>
+            <h3>為什麼傳統「定基法」會失真？</h3>
+            <ul>
+              <li><strong>科技產品系統性跌價</strong>：1999 年以來，筆電運算效能每年提升 20%，售價每年跌 7%，代表<strong>經品質調整後的實質價格平均每年大跌 27%</strong>。</li>
+              <li><strong>替代性偏誤</strong>：東西變便宜時大家會買更多。如果拿 10 年前「電腦還很貴」的價格當固定權重，去乘上今天龐大的電腦銷量，就會<strong>嚴重高估實質 GDP 成長率</strong>；而且每 5 年換一次基期，過去的歷史成長率就會被改寫。</li>
+            </ul>
+            <div class="insight-note terra">
+              <strong>知識庫勘誤紀錄（Chap-2 p.31）</strong>：講義計算連鎖法範例時，將商品 A（價格 4 × 數量 15 = 60）誤印為 30，已核對課堂手寫筆記修正為 60。
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="card-label">現代標準做法</span>
+            <h3>美、台主計總處採用的「連鎖法」</h3>
+            <p style="margin-bottom:10px;">不再死守單一固定基期，而是<strong>「每年都用前一年的最新價格當權重」</strong>算出當年度成長率，再像鐵鍊一樣一年接一年串聯起來：</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>特性</th>
+                  <th>傳統定基法</th>
+                  <th>現代連鎖法</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>反映科技跌價</strong></td>
+                  <td>慢，有累積偏誤</td>
+                  <td><strong>即時反映最新相對價格</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>更換參考年</strong></td>
+                  <td>會改變歷史成長率</td>
+                  <td><strong>不會改變歷年成長率</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>項目可加性</strong></td>
+                  <td>各年皆可相加</td>
+                  <td>僅<strong>參考年與次一年</strong>具可加性</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[fixed-base-vs-chain-linked-gdp]]</span> <span class="wiki-tag">[[source-blanchard-chap-2]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf (pp. 23–35, 67, 69–71)</div>
+      </div>
+    </section>
+
+    <!-- 第 8 頁｜什麼是經濟衰退？ -->
+    <section class="slide" data-title="08. 指標一：什麼是「經濟衰退」？">
+      <div>
+        <span class="section-tag">07 · 景氣衰退的判定</span>
+        <h1>什麼才叫做「經濟衰退」？從 2001 年案例看數據修正</h1>
+
+        <p class="core-idea">
+          在財經新聞與教科書中，最常見的經驗法則是：當實質 GDP 出現<strong>「連續至少兩個季度負成長」</strong>，就稱為經濟衰退。但真實世界的統計數據往往會在事後修正！
+        </p>
+
+        <div class="card" style="margin-bottom: 18px;">
+          <span class="card-label">跨章節數據修正實例</span>
+          <h3>2001 年美國網路泡沫衰退：為什麼第 2 章與第 5 章說法不同？</h3>
+          <div class="split-2" style="margin-top: 12px; gap: 28px;">
+            <div>
+              <p><strong>第 2 章（Chap-2 p.22）的初版數據說法：</strong></p>
+              <p style="margin-top: 4px;">雖然 2001 全年 GDP 成長率為正，但因為「<strong>2001 年第 1、2、3 季連續三個季度 GDP 皆為負成長</strong>」，所以完全符合「連續兩季負成長」的衰退定義。</p>
+            </div>
+            <div>
+              <p><strong>第 5 章（Chap-5 p.48）的事後修正數據：</strong></p>
+              <p style="margin-top: 4px;">美國經濟分析局事後更新完整普查資料後發現：<strong>2001 年第 2 季其實是微幅正成長</strong>（只有 Q1 與 Q3 為負，並沒有連續兩季負成長）！</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="insight-note">
+          <strong>為什麼 2001 年還是被認定為衰退？</strong> 因為在美國，官方衰退是由 <strong>國家經濟研究局（NBER）</strong> 綜合評估「就業人數、工業生產、實質所得與批發零售銷售」等多項指標後認定，而非單看 GDP 初值。
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[gdp-and-national-income-accounting]]</span> <span class="wiki-tag">[[source-blanchard-chap-5]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf (p. 22) vs. raw/Chap-5.pdf (pp. 48–49)</div>
+      </div>
+    </section>
+
+    <!-- 第 9 頁｜失業率怎麼算？ -->
+    <section class="slide" data-title="09. 指標二：沒工作的人都算「失業」嗎？">
+      <div>
+        <span class="section-tag">08 · 失業率與勞動市場</span>
+        <h1>沒工作的人都算「失業」嗎？</h1>
+
+        <p class="core-idea">
+          在政府統計（如台灣主計總處、美國每月家庭調查）中，<strong>「沒有工作」不等於「失業」</strong>。只有同時符合<strong>「目前沒工作」且「過去 4 週內正在積極找工作」</strong>兩個條件的人，才會被算進失業人口！
+        </p>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">人口分類架構</span>
+            <h3>工作年齡民間人口（台灣 ≥15 歲 / 美國 ≥16 歲）</h3>
+            <ul>
+              <li><strong>勞動力（就業者 + 失業者）</strong>：
+                <ul>
+                  <li><strong>就業者</strong>：有全職或兼職工作者。</li>
+                  <li><strong>失業者</strong>：沒工作，但<strong>積極在找工作</strong>且隨時可上班者。</li>
+                </ul>
+              </li>
+              <li><strong>非勞動力</strong>：沒工作也<strong>沒在找工作</strong>的人（如全職學生、退休長輩、家庭照顧者）。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">兩大核心公式</span>
+            <h3>失業率 vs. 勞動參與率</h3>
+            <div class="formula">官方失業率 = 失業者 ÷ 勞動力</div>
+            <div class="formula">勞動參與率 = 勞動力 ÷ 工作年齡民間人口</div>
+            <p style="font-size: 14.5px; margin-top: 8px;">
+              注意分母的不同：<strong>失業率的分母只有「勞動力」</strong>，不包含非勞動力！
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[unemployment-and-labor-market-indicators]]</span> <span class="wiki-tag">[[source-blanchard-chap-2]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf (pp. 36–39)</div>
+      </div>
+    </section>
+
+    <!-- 第 10 頁｜怯志工作者與廣義失業率 -->
+    <section class="slide" data-title="10. 指標二：怯志工作者與廣義失業率">
+      <div>
+        <span class="section-tag">09 · 隱藏性失業</span>
+        <h1>當失業率下降，有沒有可能是壞消息？</h1>
+
+        <p class="core-idea">
+          想像景氣非常低迷，小明投了半年履歷都石沉大海，心灰意冷決定「暫時不找工作了，先在家休息」。這時在官方統計上會發生一件弔詭的事：<strong>小明的放棄，竟然會讓國家的官方失業率下降！</strong>
+        </p>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">官方失業率的盲點</span>
+            <h3>怯志工作者</h3>
+            <p>這群「想工作、隨時能上班，但因為找不到工作而放棄繼續尋職」的人，稱為<strong>怯志工作者</strong>。</p>
+            <ul style="margin-top: 8px;">
+              <li>一旦他們停止找工作，就會從「失業者」被移出勞動力，改列為「<strong>非勞動力</strong>」。</li>
+              <li>這會導致高失業時期往往伴隨<strong>較低的勞動參與率</strong>。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">台灣主計總處補充</span>
+            <h3>同時看「廣義失業率」與「勞參率」</h3>
+            <p>為了避免官方失業率低估真實失業困境，主計總處另外編製了把怯志工作者加回來的<strong>廣義失業率</strong>：</p>
+            <div class="formula" style="font-size: 15px;">
+              廣義失業率 = (失業者 + 想工作而未找工作者) ÷ (勞動力 + 想工作而未找工作者)
+            </div>
+            <p style="font-size: 14.5px;">因此看就業報告時，必須確認「失業率下降」是因為就業增加，還是因為勞參率下滑！</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[unemployment-and-labor-market-indicators]]</span> <span class="wiki-tag">[[source-blanchard-chap-2]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf (pp. 40–41)</div>
+      </div>
+    </section>
+
+    <!-- 第 11 頁｜自然失業率與心理影響 -->
+    <section class="slide" data-title="11. 指標二：自然失業率與失業的心理影響">
+      <div>
+        <span class="section-tag">10 · 失業類型與社會福利</span>
+        <h1>為什麼失業率永遠不會是 0%？失業對人生有多大影響？</h1>
+
+        <p class="core-idea">
+          即使在經濟最繁榮的時候，社會上還是有人正在換工作、或因產業轉型而待業。因此經濟學家將失業分為三類，並指出失業率是一個<strong>「與景氣反向變動的落後指標」</strong>。
+        </p>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">三種失業類型</span>
+            <h3>自然失業率 = 摩擦性 + 結構性失業</h3>
+            <ul>
+              <li><strong>摩擦性失業</strong>：畢業生剛找工作、或跳槽期間短暫的媒合時間差（健康的流動）。</li>
+              <li><strong>結構性失業</strong>：因技術取代或產業外移，勞工技能與新職缺不匹配。</li>
+              <li><strong>循環性失業</strong>：因景氣衰退、買氣不足造成的失業。當循環性失業為 0 時的失業率即為<strong>自然失業率</strong>，對應的產出稱為<strong>潛在產出（充分就業產出）</strong>。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">德國幸福感追蹤調查</span>
+            <h3>失業的「心理疤痕效應」長達 4 年以上</h3>
+            <p>為什麼經濟學家把失業視為頭號公敵？根據德國社會經濟追蹤調查：</p>
+            <ul style="margin-top: 8px;">
+              <li><strong>失業前 1～2 年</strong>：擔心被裁員的焦慮，就已經讓個人幸福感開始下滑。</li>
+              <li><strong>失業當下</strong>：人生滿意度出現斷崖式暴跌。</li>
+              <li><strong>重返職場 4 年後</strong>：即使後來找到新工作，幸福感在 4 年後<strong>仍無法完全恢復</strong>到失業前的水準。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[unemployment-and-labor-market-indicators]]</span> <span class="wiki-tag">[[source-blanchard-chap-2]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf (pp. 42–44, 68)</div>
+      </div>
+    </section>
+
+    <!-- 第 12 頁｜通膨、通縮與通膨減緩 -->
+    <section class="slide" data-title="12. 指標三：通膨、通縮與「通膨減緩」">
+      <div>
+        <span class="section-tag">11 · 通貨膨脹率</span>
+        <h1>通貨膨脹、通貨緊縮與「通膨減緩」差在哪？</h1>
+
+        <p class="core-idea">
+          當新聞報導「今年通膨率從 5% 降到 2%」時，許多人會誤以為東西變便宜了。其實只要通膨率大於 0%，物價就還在繼續創歷史新高，只是「漲得比較慢」而已！
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 24%;">專有名詞</th>
+              <th style="width: 26%;">通膨率數值表現</th>
+              <th>生活白話文（以一碗 100 元的牛肉麵為例）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>通貨膨脹</strong></td>
+              <td>大於 0%（例如 +5%）</td>
+              <td>整體物價水準<strong>持續上漲</strong>（牛肉麵從 100 元漲到 105 元）。</td>
+            </tr>
+            <tr>
+              <td><strong>通膨減緩（反通膨）</strong></td>
+              <td>仍大於 0%，但數值下降<br>（例如從 +5% 降為 +2%）</td>
+              <td>物價<strong>還是在上漲，只是上漲速度變慢</strong>（牛肉麵從 105 元繼續漲到 107.1 元，沒有變便宜！）。</td>
+            </tr>
+            <tr>
+              <td><strong>通貨緊縮</strong></td>
+              <td>小於 0%（例如 −2%）</td>
+              <td>整體物價水準<strong>持續下跌</strong>（牛肉麵跌回 98 元，大家預期還會更便宜而延後消費，常伴隨嚴重衰退）。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="insight-note">
+          <strong>為什麼各國央行追求「1% ～ 4%（通常設 2%）」的溫和通膨，而不是 0%？</strong><br>
+          因為高通膨會造成財富重分配不公；但若通膨太接近 0%，一旦景氣降溫就極易掉入「通貨緊縮螺旋」。維持 2% 左右的溫和通膨最健康。
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[inflation-and-price-indexes]]</span> <span class="wiki-tag">[[source-blanchard-chap-2]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf (pp. 45, 57–58)</div>
+      </div>
+    </section>
+
+    <!-- 第 13 頁｜拉氏指數 vs 畢氏指數 -->
+    <section class="slide" data-title="13. 指標三：拉氏指數 vs. 畢氏指數">
+      <div>
+        <span class="section-tag">12 · 物價指數的偏誤</span>
+        <h1>蘋果變貴了，你會改買橘子：為什麼傳統物價指數會高估通膨？</h1>
+
+        <p class="core-idea">
+          要計算物價漲了多少，統計局必須選一個「固定購物籃」。但消費者是聰明的：當蘋果大漲價，我們會少買蘋果、改買橘子。<strong>購物籃的數量權重到底該固定在「過去（基期）」還是「現在（當期）」？</strong>
+        </p>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">拉氏物價指數</span>
+            <h3>固定用「基期年舊購物籃」計算</h3>
+            <div class="formula">拉氏指數 = (當期價格 × 基期數量) ÷ (基期價格 × 基期數量)</div>
+            <ul>
+              <li><strong>代表指標</strong>：<strong>CPI（消費者物價指數）</strong>。</li>
+              <li><strong>缺點（高估通膨）</strong>：假設就算蘋果漲了三倍，你今年還是死守幾年前的習慣買一樣多的蘋果，完全忽略消費者會改買便宜替代品，因此<strong>系統性高估真實生活成本漲幅</strong>！</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">畢氏物價指數</span>
+            <h3>直接用「當期最新購物籃」計算</h3>
+            <div class="formula">畢氏指數 = (當期價格 × 當期數量) ÷ (基期價格 × 當期數量)</div>
+            <ul>
+              <li><strong>代表指標</strong>：<strong>GDP 平減指數</strong>。</li>
+              <li><strong>缺點（低估通膨）</strong>：直接拿消費者已經被迫換成便宜替代品後的數量來算，忽略了「原本想吃蘋果卻只能吃橘子」的滿足感損失，因此<strong>系統性低估通膨</strong>。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[inflation-and-price-indexes]]</span> <span class="wiki-tag">[[source-blanchard-chap-2]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf (pp. 46–51)</div>
+      </div>
+    </section>
+
+    <!-- 第 14 頁｜CPI vs PCE vs GDP 平減指數 -->
+    <section class="slide" data-title="14. 指標三：CPI vs. PCE vs. GDP 平減指數">
+      <div>
+        <span class="section-tag">13 · 三大通膨指標比較</span>
+        <h1>為什麼美國聯準會決定升降息時，首選 PCE 而非 CPI？</h1>
+
+        <p class="core-idea">
+          2012 年 1 月，美國聯準會正式宣布以 <strong>PCE（個人消費支出物價指數）</strong> 取代大眾熟知的 CPI，作為貨幣政策的首要通膨指標。三者的核心差異如下：
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 18%;">比較維度</th>
+              <th style="width: 27%;">CPI (消費者物價指數)</th>
+              <th style="width: 29%;">PCE (個人消費支出物價指數)</th>
+              <th>GDP 平減指數</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>調查對象與來源</strong></td>
+              <td>美國勞工局（BLS）<br>僅調查<strong>都市家庭</strong></td>
+              <td>美國經濟分析局（BEA）<br><strong>企業銷售報告 + 全美家庭與非營利機構</strong></td>
+              <td>美國經濟分析局（BEA）<br>全體國內生產帳</td>
+            </tr>
+            <tr>
+              <td><strong>涵蓋範圍差異</strong></td>
+              <td>只算消費者<strong>自己掏腰包</strong>買的東西（含進口消費品）</td>
+              <td>最全面！除了自付費用，<strong>還包含雇主幫你保的醫療險與政府醫保支出</strong></td>
+              <td>國內生產的所有最終財（含企業買機器與出口），但<strong>完全不含進口品</strong></td>
+            </tr>
+            <tr>
+              <td><strong>權重與替代效果</strong></td>
+              <td>拉氏固定權重，<strong>高估生活成本</strong>，且易受汽油/電腦暴漲暴跌影響</td>
+              <td><strong>連鎖動態調整權重</strong>，自動反映消費者改買替代品的行為，走勢更平滑</td>
+              <td>當進口原油暴漲時（如 1979 石油危機），初期漲幅會遠低於 CPI</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[cpi-vs-pce-vs-gdp-deflator]]</span> <span class="wiki-tag">[[source-blanchard-chap-2]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf (pp. 48, 52–56)</div>
+      </div>
+    </section>
+
+    <!-- 第 15 頁｜三大指標串聯 -->
+    <section class="slide" data-title="15. 三大指標串聯：歐肯法則與菲利浦曲線">
+      <div>
+        <span class="section-tag">14 · 產出、失業與通膨的連動</span>
+        <h1>三大指標如何連動？為什麼台灣 GDP 成長對降失業率效果較小？</h1>
+
+        <p class="core-idea">
+          現在我們可以把三個體溫計串起來了：當<strong>經濟成長加速（GDP ↑）</strong>，企業擴編會讓<strong>失業率下降（歐肯法則）</strong>；而當<strong>失業率降到太低</strong>，企業加薪搶人又會推升<strong>通貨膨脹（菲利浦曲線）</strong>。
+        </p>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">橋樑一 · 歐肯法則</span>
+            <h3>為什麼台灣的歐肯係數不到美國的一半？</h3>
+            <ul>
+              <li><strong>美國實證</strong>：實質 GDP 成長率每增加 1%，失業率平均下降 <strong>0.3 個百分點</strong>（歐肯係數 ≈ 0.30）。</li>
+              <li><strong>台灣實證（課堂講義補充）</strong>：台灣的歐肯係數僅約 <strong>0.10 ～ 0.16</strong>！</li>
+              <li><strong>關鍵原因</strong>：美國經濟靠內需服務業（餐廳、零售、醫療），景氣好時需要請大量員工；<strong>台灣經濟成長則高度集中在「資本密集與技術密集」的半導體與電子業</strong>，產值暴增主要化為機台折舊與公司獲利，對拉低全國失業率的幫助較有限。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">橋樑二 · 菲利浦曲線</span>
+            <h3>為什麼「失業率太低」反而會讓央行緊張？</h3>
+            <ul>
+              <li><strong>負向抵換關係</strong>：平均而言，失業率越高，通膨越低；失業率越低，通膨越高。</li>
+              <li><strong>工資—通膨螺旋</strong>：當失業率低於自然失業率（例如小於 4%），市場全面缺工，老闆為了留人只好大幅加薪，接著把人事成本轉嫁到商品售價上；物價變貴後勞工又要求更高薪水，形成螺旋式通膨！</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[okuns-law-and-phillips-curve]]</span> <span class="wiki-tag">[[source-blanchard-chap-2]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf (pp. 42, 59–62)</div>
+      </div>
+    </section>
+
+    <!-- 第 16 頁｜生活延伸與總結 -->
+    <section class="slide" data-title="16. 生活延伸與總結：名目利率 vs. 實質利率">
+      <div>
+        <span class="section-tag">15 · 通膨與你的存款購買力</span>
+        <h1>扣掉通膨後，你的存款真的有賺錢嗎？</h1>
+
+        <p class="core-idea">
+          認識通膨率之後，我們就能看懂金融市場最重要的概念：<strong>名目利率</strong> 是銀行牌告給你的「帳面利息」；但扣掉預期通膨率後的<strong>實質利率（實質利率 ≈ 名目利率 − 預期通膨率）</strong>，才是你真正的「購買力增減」（費雪方程式）。
+        </p>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">互動試算</span>
+            <h3>試算你的存款「真實購買力利率」</h3>
+
+            <div class="calc-row">
+              <span>銀行名目利率：</span>
+              <input type="range" id="nom-range" min="0.0" max="8.0" step="0.5" value="2.0" oninput="calcReal()" />
+              <strong id="nom-disp" style="width:45px; text-align:right;">2.0%</strong>
+            </div>
+
+            <div class="calc-row">
+              <span>預期通貨膨脹率：</span>
+              <input type="range" id="inf-range" min="-1.0" max="8.0" step="0.5" value="3.0" oninput="calcReal()" />
+              <strong id="inf-disp" style="width:45px; text-align:right;">3.0%</strong>
+            </div>
+
+            <div class="calc-result">
+              <div>
+                <div class="big-num" id="r-nom">2.0%</div>
+                <div class="small-lbl">帳面名目利率</div>
+              </div>
+              <div>
+                <div class="big-num" id="r-inf">3.0%</div>
+                <div class="small-lbl">物價通膨率</div>
+              </div>
+              <div>
+                <div class="big-num" id="r-real">-1.0%</div>
+                <div class="small-lbl">實質利率</div>
+              </div>
+            </div>
+            <p id="r-verdict" style="font-size:13.5px; color:var(--text-body); margin-top:10px; line-height:1.6;"></p>
+          </div>
+
+          <div class="card">
+            <span class="card-label">五句話總結</span>
+            <h3>看懂財經新聞的隨身法則</h3>
+            <ol style="font-size:14.5px; line-height:1.75;">
+              <li><strong>看經濟成長</strong>：看消除物價後的「實質 GDP」，且美台皆改用「連鎖法」避免科技跌價偏誤。</li>
+              <li><strong>看 GDP 組成</strong>：買新房算「投資 I」不算消費 C；美國靠內需消費，台灣靠出口。</li>
+              <li><strong>看失業率</strong>：若失業率下降但「勞參率」也下降，小心是「怯志工作者」放棄找工作的假象。</li>
+              <li><strong>看通膨率</strong>：通膨減緩（如 5% 降到 2%）代表物價還在漲只是變慢；Fed 升降息最看重動態權重的 <strong>PCE</strong>。</li>
+              <li><strong>看利率與政策</strong>：名目利率扣掉通膨才是實質利率；當景氣衰退或大家恐慌存錢（節儉矛盾）時，需靠政府減稅支出與央行降息聯手救市。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>對應 Wiki 節點：<span class="wiki-tag">[[extended-is-lm-and-financial-crisis]]</span> <span class="wiki-tag">[[money-market-and-monetary-policy]]</span> <span class="wiki-tag">[[fiscal-vs-monetary-policy-in-is-lm]]</span> <span class="wiki-tag">[[overview]]</span></div>
+        <div>資料來源：raw/Chap-2.pdf ~ Chap-6.pdf (共 5 篇來源完整對應)</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let current = 0;
+    let isEditing = false;
+
+    function showSlide(idx) {
+      if (idx < 0) idx = 0;
+      if (idx >= slides.length) idx = slides.length - 1;
+      slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+      current = idx;
+      document.getElementById('page-counter').textContent = `${idx + 1} / ${slides.length}`;
+      document.getElementById('toc-overlay').classList.remove('open');
+    }
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+    function toggleTOC() {
+      document.getElementById('toc-overlay').classList.toggle('open');
+    }
+
+    // Direct In-Browser Edit Mode Toggle
+    function toggleEditMode() {
+      isEditing = !isEditing;
+      document.body.classList.toggle('editing', isEditing);
+      const btn = document.getElementById('edit-toggle-btn');
+      btn.classList.toggle('active-edit', isEditing);
+      btn.textContent = isEditing ? '✓ 完成編輯' : '✎ 編輯文字';
+
+      const editableSelectors = '.slide h1, .slide h3, .slide p, .slide li, .slide td, .slide th, .slide .section-tag, .slide .card-label, .slide .formula, .slide .insight-note';
+      document.querySelectorAll(editableSelectors).forEach(el => {
+        if (isEditing) {
+          el.setAttribute('contenteditable', 'true');
+        } else {
+          el.removeAttribute('contenteditable');
+        }
+      });
+    }
+
+    // Export / Download the Edited HTML File
+    function downloadEditedHTML() {
+      // Turn off editing attributes temporarily before serializing
+      const wasEditing = isEditing;
+      if (wasEditing) toggleEditMode();
+
+      const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'slides.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      if (wasEditing) toggleEditMode();
+    }
+
+    // Populate TOC
+    const tocGrid = document.getElementById('toc-grid');
+    slides.forEach((s, i) => {
+      const item = document.createElement('div');
+      item.className = 'toc-link';
+      item.innerHTML = `<span>${s.dataset.title}</span><span style="color:var(--text-muted); font-family:Georgia,serif;">p.${i + 1}</span>`;
+      item.onclick = () => showSlide(i);
+      tocGrid.appendChild(item);
+    });
+
+    // Keyboard Navigation (Disabled when typing inside an editable element)
+    window.addEventListener('keydown', (e) => {
+      if (isEditing && document.activeElement && document.activeElement.isContentEditable) {
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Escape') {
+        document.getElementById('toc-overlay').classList.remove('open');
+      }
+    });
+
+    // Interactive #1: Slide 5 Multiplier Calculator
+    function calcMult() {
+      const mpc = parseFloat(document.getElementById('mpc-range').value);
+      document.getElementById('mpc-disp').textContent = `${Math.round(mpc * 100)}%`;
+      const mult = 1 / (1 - mpc);
+      const total = 100 * mult;
+      const extra = total - 100;
+
+      document.getElementById('m-times').textContent = `${mult.toFixed(1)} 倍`;
+      document.getElementById('m-total').textContent = `${Math.round(total)} 萬`;
+      document.getElementById('m-extra').textContent = `+${Math.round(extra)} 萬`;
+
+      const r1 = 100;
+      const r2 = r1 * mpc;
+      const r3 = r2 * mpc;
+      document.getElementById('m-detail').innerHTML =
+        `傳遞過程：第 1 輪初始消費 <strong>100 萬</strong> ➔ 店家拿到錢後再花掉 ${Math.round(mpc*100)}%（第 2 輪 <strong>+${r2.toFixed(0)} 萬</strong>）➔ 第 3 輪再花掉 <strong>+${r3.toFixed(0)} 萬</strong>⋯⋯累積創造 <strong>${Math.round(total)} 萬</strong> GDP。`;
+    }
+    calcMult();
+
+    // Interactive #2: Slide 16 Real Interest Rate Calculator
+    function calcReal() {
+      const nom = parseFloat(document.getElementById('nom-range').value);
+      const inf = parseFloat(document.getElementById('inf-range').value);
+      const real = nom - inf;
+
+      document.getElementById('nom-disp').textContent = `${nom.toFixed(1)}%`;
+      document.getElementById('inf-disp').textContent = `${inf.toFixed(1)}%`;
+
+      document.getElementById('r-nom').textContent = `${nom.toFixed(1)}%`;
+      document.getElementById('r-inf').textContent = `${inf.toFixed(1)}%`;
+      document.getElementById('r-real').textContent = `${real > 0 ? '+' : ''}${real.toFixed(1)}%`;
+
+      const verdict = document.getElementById('r-verdict');
+      if (real < 0) {
+        verdict.innerHTML = `<strong>結論：出現「負實質利率（${real.toFixed(1)}%）」！</strong> 雖然銀行給你 ${nom.toFixed(1)}% 利息，但物價漲了 ${inf.toFixed(1)}%，存錢一年後的真實購買力反而縮水了 <strong>${Math.abs(real).toFixed(1)}%</strong>。`;
+      } else if (real === 0) {
+        verdict.innerHTML = `<strong>結論：實質利率為 0%</strong>。你的利息剛好被物價漲幅完全吃掉，真實購買力原地踏步。`;
+      } else {
+        verdict.innerHTML = `<strong>結論：正實質利率（+${real.toFixed(1)}%）</strong>。利息高於通膨，存錢一年後的真實購買力淨增加 <strong>${real.toFixed(1)}%</strong>。`;
+      }
+    }
+    calcReal();
+  </script>
+</body>
+</html>

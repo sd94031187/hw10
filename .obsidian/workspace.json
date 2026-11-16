@@ -1,0 +1,223 @@
+{
+  "main": {
+    "id": "ddccf681c9d0a208",
+    "type": "split",
+    "children": [
+      {
+        "id": "d4819e30a49c1da0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2b2a952192421886",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "wiki/concepts/gdp-and-national-income-accounting.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "gdp-and-national-income-accounting"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "bd5989ac11360c32",
+    "type": "split",
+    "children": [
+      {
+        "id": "db8bab8f1d36ce5c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "aa0dbfb1b7efd527",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "檔案瀏覽器"
+            }
+          },
+          {
+            "id": "3799ad861987f81e",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜尋"
+            }
+          },
+          {
+            "id": "28acd319a9184ca9",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "書籤"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "14fbde81a4eb65d0",
+    "type": "split",
+    "children": [
+      {
+        "id": "1ab1ded2af6b8d50",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "64b1e1f272c47fdb",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "wiki/concepts/gdp-and-national-income-accounting.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "反向連結"
+            }
+          },
+          {
+            "id": "adbed9d369a2ff73",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "wiki/concepts/gdp-and-national-income-accounting.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "對外連結"
+            }
+          },
+          {
+            "id": "b1c5d2adafaac8c8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "標籤"
+            }
+          },
+          {
+            "id": "3faeaf2804646743",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "所有屬性"
+            }
+          },
+          {
+            "id": "99ff9392ab7c52dd",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "wiki/concepts/gdp-and-national-income-accounting.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大綱"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:開啟快速切換": false,
+      "graph:查看關聯圖": false,
+      "canvas:建立新畫布": false,
+      "daily-notes:開啟今天的每日筆記": false,
+      "templates:插入模板": false,
+      "command-palette:開啟命令面板": false,
+      "bases:建立新的 base": false
+    }
+  },
+  "active": "2b2a952192421886",
+  "lastOpenFiles": [
+    "README.md",
+    "slides-ch7-11.html",
+    "wiki/comparisons/short-run-vs-medium-run-macro.md",
+    "slide-outline-ch7-11.md",
+    "wiki/comparisons/saving-short-run-paradox-vs-long-run-growth.md",
+    "wiki/concepts/solow-growth-model-and-golden-rule.md",
+    "wiki/concepts/economic-growth-ppp-and-happiness.md",
+    "wiki/concepts/is-lm-pc-medium-run-and-supply-shocks.md",
+    "wiki/concepts/expectations-augmented-phillips-curve.md",
+    "wiki/concepts/labor-market-wage-and-price-setting.md",
+    "wiki/sources/source-blanchard-chap-11.md",
+    "wiki/sources/source-blanchard-chap-10.md",
+    "wiki/sources/source-blanchard-chap-9.md",
+    "wiki/sources/source-blanchard-chap-8.md",
+    "wiki/sources/source-blanchard-chap-7.md",
+    "slide-outline.md",
+    "homework-submission.md",
+    "slides.html",
+    "wiki/concepts/extended-is-lm-and-financial-crisis.md",
+    "wiki/comparisons/fixed-base-vs-chain-linked-gdp.md",
+    "wiki/comparisons/fiscal-vs-monetary-policy-in-is-lm.md",
+    "wiki/comparisons/cpi-vs-pce-vs-gdp-deflator.md",
+    "log.md",
+    "index.md",
+    "AGENTS.md",
+    "wiki/sources/source-blanchard-chap-6.md",
+    "wiki/sources/source-blanchard-chap-5.md",
+    "wiki/sources/source-blanchard-chap-4.md"
+  ]
+}

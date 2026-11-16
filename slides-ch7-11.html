@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>薪水、通膨與國家富裕的終極密碼｜總體經濟學第 7～11 章導讀</title>
+  <style>
+    :root {
+      --bg-outer: #f2ece3;
+      --bg-slide: #fbf9f5;
+      --bg-card: #f4efe7;
+      --text-ink: #24211d;
+      --text-body: #524d46;
+      --text-muted: #8c857b;
+      --accent-terra: #9e4733;
+      --accent-navy: #2d4659;
+      --border-hairline: #e2dcd1;
+      --border-strong: #c9c0b3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "PingFang TC", "Hiragino Sans CNS", "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-outer);
+      color: var(--text-ink);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Minimal Header */
+    header {
+      height: 54px;
+      background-color: var(--bg-outer);
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 44px;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-family: "Songti TC", "Noto Serif TC", Georgia, serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text-body);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .edit-badge {
+      display: none;
+      font-family: "PingFang TC", sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent-terra);
+      background: rgba(158, 71, 51, 0.1);
+      border: 1px solid rgba(158, 71, 51, 0.35);
+      padding: 2px 9px;
+      border-radius: 3px;
+    }
+
+    body.editing .edit-badge {
+      display: inline-block;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button.nav-btn {
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      color: var(--text-ink);
+      padding: 5px 13px;
+      border-radius: 3px;
+      font-size: 12.5px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    button.nav-btn:hover {
+      background: var(--bg-card);
+      border-color: var(--text-body);
+    }
+
+    button.nav-btn.active-edit {
+      background: var(--accent-terra);
+      color: #fff;
+      border-color: var(--accent-terra);
+    }
+
+    button.nav-btn.save-btn {
+      display: none;
+      border-color: var(--accent-navy);
+      color: var(--accent-navy);
+      font-weight: 600;
+    }
+
+    body.editing button.nav-btn.save-btn {
+      display: inline-block;
+    }
+
+    .page-counter {
+      font-family: Georgia, serif;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      min-width: 60px;
+      text-align: center;
+    }
+
+    /* Slide Stage */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 26px 44px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide {
+      background-color: var(--bg-slide);
+      border: 1px solid var(--border-hairline);
+      box-shadow: 0 12px 36px rgba(36, 33, 29, 0.04);
+      width: 100%;
+      max-width: 1060px;
+      height: 100%;
+      max-height: 675px;
+      padding: 52px 72px 34px 72px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      display: flex;
+      animation: fadeSlide 0.2s ease;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0.3; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Editable Outline Styling when Edit Mode is ON */
+    body.editing [contenteditable="true"] {
+      outline: 1px dashed rgba(158, 71, 51, 0.35);
+      outline-offset: 3px;
+      border-radius: 2px;
+      cursor: text;
+    }
+
+    body.editing [contenteditable="true"]:focus {
+      outline: 2px solid var(--accent-terra);
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Slide Header */
+    .section-tag {
+      font-size: 12.5px;
+      letter-spacing: 0.08em;
+      color: var(--accent-terra);
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    h1 {
+      font-family: "Songti TC", "Noto Serif TC", Georgia, serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--text-ink);
+      line-height: 1.35;
+      margin-bottom: 16px;
+    }
+
+    .core-idea {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-body);
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-hairline);
+      margin-bottom: 24px;
+    }
+
+    .core-idea strong {
+      color: var(--text-ink);
+      font-weight: 600;
+    }
+
+    /* Generous Content Layouts */
+    .split-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .split-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      padding: 22px 26px;
+      border-radius: 3px;
+    }
+
+    .card-label {
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--accent-terra);
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    h3 {
+      font-family: "Songti TC", "Noto Serif TC", Georgia, serif;
+      font-size: 18.5px;
+      font-weight: 700;
+      color: var(--text-ink);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    p, li {
+      font-size: 15px;
+      line-height: 1.78;
+      color: var(--text-body);
+    }
+
+    ul, ol {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 7px;
+    }
+
+    strong {
+      color: var(--text-ink);
+      font-weight: 600;
+    }
+
+    /* Clean Formula Box */
+    .formula {
+      font-family: "Songti TC", Georgia, serif;
+      font-size: 16.5px;
+      color: var(--text-ink);
+      background-color: var(--bg-slide);
+      border: 1px solid var(--border-hairline);
+      border-left: 3px solid var(--accent-terra);
+      padding: 11px 16px;
+      margin: 10px 0;
+    }
+
+    /* Subtle Callout Note */
+    .insight-note {
+      background-color: var(--bg-card);
+      border-left: 3px solid var(--accent-navy);
+      padding: 13px 18px;
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--text-body);
+      margin-top: 14px;
+    }
+
+    .insight-note.terra {
+      border-left-color: var(--accent-terra);
+    }
+
+    /* Booktabs Minimalist Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14.5px;
+      margin-top: 4px;
+    }
+
+    th {
+      border-top: 1.5px solid var(--text-ink);
+      border-bottom: 1px solid var(--text-ink);
+      padding: 9px 13px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-ink);
+    }
+
+    td {
+      border-bottom: 1px solid var(--border-hairline);
+      padding: 11px 13px;
+      color: var(--text-body);
+      line-height: 1.65;
+      vertical-align: top;
+    }
+
+    /* Minimal Interactive Widget */
+    .calc-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 10px 0;
+      font-size: 14.5px;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--accent-terra);
+    }
+
+    .calc-result {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--border-strong);
+      border-bottom: 1px solid var(--border-strong);
+      padding: 12px 0;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .calc-result .big-num {
+      font-family: Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent-terra);
+    }
+
+    .calc-result .small-lbl {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Slide Footer (Wiki Source Mapping) */
+    .slide-footer {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-hairline);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .wiki-tag {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11.5px;
+      color: var(--text-body);
+      background: var(--bg-card);
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-left: 4px;
+    }
+
+    /* TOC Overlay */
+    #toc-overlay {
+      position: fixed;
+      inset: 54px 0 0 0;
+      background: rgba(242, 236, 227, 0.98);
+      z-index: 30;
+      display: none;
+      padding: 40px 60px;
+      overflow-y: auto;
+    }
+
+    #toc-overlay.open {
+      display: block;
+    }
+
+    .toc-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 36px;
+      margin-top: 16px;
+    }
+
+    .toc-link {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-hairline);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: var(--text-ink);
+    }
+
+    .toc-link:hover {
+      color: var(--accent-terra);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Minimal Header -->
+  <header>
+    <div class="brand-title">
+      <span>總體經濟學入門導讀（第 7～11 章：中期與長期篇）</span>
+      <span class="edit-badge">編輯模式已開啟：點擊畫面任何文字即可直接刪改</span>
+    </div>
+    <div class="nav-controls">
+      <button class="nav-btn" id="edit-toggle-btn" onclick="toggleEditMode()">✎ 編輯文字</button>
+      <button class="nav-btn save-btn" onclick="downloadEditedHTML()">💾 儲存下載 HTML</button>
+      <button class="nav-btn" onclick="toggleTOC()">目錄</button>
+      <button class="nav-btn" onclick="prevSlide()">← 上一頁</button>
+      <span class="page-counter" id="page-indicator">1 / 18</span>
+      <button class="nav-btn" onclick="nextSlide()">下一頁 →</button>
+    </div>
+  </header>
+
+  <!-- TOC Drawer -->
+  <div id="toc-overlay">
+    <div class="toc-wrap">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px solid var(--text-ink); padding-bottom:12px;">
+        <h3 style="margin:0;">簡報章節目錄（點擊直接跳轉）</h3>
+        <button class="nav-btn" onclick="toggleTOC()">關閉 ✕</button>
+      </div>
+      <div class="toc-grid" id="toc-grid"></div>
+    </div>
+  </div>
+
+  <!-- Main Slide Deck -->
+  <main>
+
+    <!-- Slide 1: Cover -->
+    <section class="slide active" data-title="01. 封面：薪水、通膨與國家富裕的終極密碼">
+      <div style="margin: auto 0;">
+        <span class="section-tag">零基礎總體經濟學導讀｜第 7 章至第 11 章</span>
+        <h1 style="font-size: 38px; margin-bottom: 20px;">薪水、通膨與國家富裕的終極密碼</h1>
+        <p style="font-size: 17.5px; max-width: 780px; line-height: 1.85; margin-bottom: 36px;">
+          前半學期（第 2～6 章）我們看懂了<strong>短期（1～2 年）</strong>的消費需求與央行利率。現在我們要把時間拉長，解開兩個更關鍵的問題：在<strong>中期（3～10 年）</strong>，薪水與物價如何互相追逐？在<strong>長期（10～50 年）</strong>，為什麼有些國家能比百年前富裕十倍？
+        </p>
+
+        <div class="split-3">
+          <div class="card">
+            <span class="card-label">第一幕｜短期 vs. 中期</span>
+            <h3>從點餐需求到餐廳產能</h3>
+            <p>為什麼短期降息印鈔能救景氣，到了中期卻只會變成通貨膨脹？看懂勞資談判與自然失業率。</p>
+          </div>
+          <div class="card">
+            <span class="card-label">第二幕｜通膨與通縮螺旋</span>
+            <h3>菲利浦曲線的三次變臉</h3>
+            <p>為什麼老闆寧願給微幅加薪也不敢直接扣薪水？1929 年大蕭條的「物價下跌」為何反而害死經濟？</p>
+          </div>
+          <div class="card">
+            <span class="card-label">第三幕｜長期國家富裕之謎</span>
+            <h3>索洛模型與存錢黃金法則</h3>
+            <p>有錢真的比較快樂嗎？為什麼一直買機器無法讓國家永遠成長？存多少錢才能讓全民享受最多果實？</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>提示：可使用鍵盤 ← → 換頁，或點擊上方「✎ 編輯文字」直接修改內容</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[overview]]</span>
+          <span class="wiki-tag">[[macroeconomic-time-horizons]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2: Short Run vs Medium Run Comparison 1 -->
+    <section class="slide" data-title="02. 短期 vs. 中期：菜單不改價 vs. 薪水物價全面調整">
+      <div>
+        <span class="section-tag">核心觀念轉換｜短期與中期的根本差異</span>
+        <h1>短期 vs. 中期有什麼不同？從「菜單不改價」到「薪水物價全面調整」</h1>
+        <div class="core-idea">
+          從第 3～6 章跨入第 7～9 章，最關鍵的差別在於<strong>「物價與薪水來不來得及調整」</strong>：短期菜單價格固定，客人點多少就做多少；中期合約到期、薪水與售價全面重談，經濟必定回到<strong>「正常產能上限」</strong>。
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 20%;">比較維度</th>
+              <th style="width: 40%;">短期（約 1～2 年內，第 3～6 章）</th>
+              <th style="width: 40%;">中期（約 3～10 年，第 7～9 章）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>物價與薪水狀態</strong></td>
+              <td><strong>僵固不動</strong>（勞動合約還沒到期、店家不輕易改菜單價格，統計顯示政策衝擊後前 6 季物價幾乎不動）。</td>
+              <td><strong>充分彈性調整</strong>（勞資重新談判薪水、老闆把成本轉嫁調整商品售價，預期物價等於實際物價）。</td>
+            </tr>
+            <tr>
+              <td><strong>誰決定總產出？</strong></td>
+              <td><strong>總需求（客人想買多少）決定</strong>：<br>大家越愛花錢、政府越撒錢，工廠就加班生產越多。</td>
+              <td><strong>總供給（正常產能與勞動制度）決定</strong>：<br>產出必定回到由人口、技術與市場制度決定的「潛在產出」。</td>
+            </tr>
+            <tr>
+              <td><strong>人氣餐廳的生活比喻</strong></td>
+              <td><strong>餐廳突然爆紅（短期）</strong>：菜單還沒改價，客人大排長龍點餐，廚房拼命加班出菜，營收與產量暴衝！</td>
+              <td><strong>爆紅兩年後（中期）</strong>：廚師累壞要求加薪、老闆重印菜單全面漲價，排隊人潮退去，客流量回到餐廳正常的座位上限。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.5 (p.54) &amp; Ch.7 (p.2–4)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[short-run-vs-medium-run-macro]]</span>
+          <span class="wiki-tag">[[macroeconomic-time-horizons]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3: Wage and Price Setting (Ch.7) -->
+    <section class="slide" data-title="03. 薪水是怎麼決定的？勞資雙方的拔河">
+      <div>
+        <span class="section-tag">第一章節｜勞動市場與薪資談判（第 7 章）</span>
+        <h1>薪水是怎麼決定的？勞資雙方的拔河</h1>
+        <div class="core-idea">
+          在中期，薪水與物價取決於兩股力量的拔河：<strong>員工關心的是「扣掉物價後的真實購買力」</strong>，而<strong>企業老闆則是在薪水成本之上，加上一筆「利潤空間（加成）」來決定商品售價</strong>。
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">第一股力量｜員工怎麼談薪水（工資設定）</span>
+            <h3>外面越缺工、退路越好，員工越敢要高薪</h3>
+            <div class="formula">名目薪水 ＝ 預期物價 × 議價力（失業率 −、制度保障 ＋）</div>
+            <ul>
+              <li><strong>看重真實購買力</strong>：員工不在乎帳面領幾張鈔票，而在乎薪水能買多少便當。因為薪水是一年一簽，談薪水時看的是「預期明年物價」。</li>
+              <li><strong>失業率越低，薪水越高</strong>：當大街小巷都在缺工（失業率低），店員隨時能跳槽，老闆就必須加薪留人。</li>
+              <li><strong>制度保障越強，底氣越足</strong>：失業救濟金越高、最低工資越高或資遣費越貴，員工談判時要求的薪水就越高。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">第二股力量｜老闆怎麼定售價（價格設定）</span>
+            <h3>商品售價 ＝ 薪資成本 ×（1 ＋ 利潤加成）</h3>
+            <div class="formula">商品價格 ＝（1 ＋ 企業利潤加成比例）× 名目薪水</div>
+            <ul>
+              <li><strong>什麼是利潤加成？</strong> 如果市場完全競爭，售價就等於成本；但現實中企業有品牌與獨佔力，會在薪水成本上加價（例如加價 20%）賣給消費者。</li>
+              <li><strong>老闆定價直接決定了「實質薪水天花板」</strong>：如果全社會所有老闆都把商品在薪水之上加價 25% 出售，那員工拿薪水去買商品時，真實購買力就被固定鎖在「1 ÷ 1.25 ＝ 80%」！</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.7 (p.11–25)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[labor-market-wage-and-price-setting]]</span>
+          <span class="wiki-tag">[[source-blanchard-chap-7]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: Efficiency Wages & Henry Ford (Ch.7) -->
+    <section class="slide" data-title="04. 為什麼好老闆願意主動付高薪？效率工資的故事">
+      <div>
+        <span class="section-tag">第一章節｜勞動市場與薪資談判（第 7 章）</span>
+        <h1>為什麼好老闆願意主動付高薪？效率工資的故事</h1>
+        <div class="core-idea">
+          就算沒有工會施壓，許多聰明的企業仍會主動給出<strong>遠高於市場最低行情的薪水（稱為「效率工資」）</strong>——這不是做慈善，而是因為高薪能讓員工珍惜工作、不摸魚，並省下龐大的離職重訓成本！
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">歷史真實案例｜1914 年亨利·福特的「日薪 5 美元」震撼彈</span>
+            <h3>把日薪直接翻倍，公司利潤反而暴增！</h3>
+            <p style="margin-bottom: 10px;">
+              1913 年，福特汽車導入 T 型車流水線，工作極度枯燥繁重。當時市場行情日薪約 <strong>2.3 美元</strong>，結果福特工廠發生了恐怖的離職潮：
+            </p>
+            <ul>
+              <li><strong>改革前（1913 年）</strong>：為了維持廠內 14,000 名工人，一年竟然要新招募 <strong>52,000 人</strong>！員工一領薪水就跑，老師傅光教新人就飽了。</li>
+              <li><strong>改革後（1914 年 1 月）</strong>：福特宣布將日薪直接翻倍至 <strong>5 美元</strong>（且工時從 9 小時縮短為 8 小時），全美轟動，生產效率瞬間脫胎換骨！</li>
+            </ul>
+          </div>
+
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>福特工廠指標</th>
+                  <th>1913 年（日薪 2.3 美元）</th>
+                  <th>1915 年（日薪 5 美元）</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>員工年離職率</strong></td>
+                  <td><strong style="color:var(--accent-terra);">370%</strong>（幾乎換了四輪）</td>
+                  <td><strong style="color:var(--accent-navy);">16%</strong>（暴跌超過 95%！）</td>
+                </tr>
+                <tr>
+                  <td><strong>每日無故曠職率</strong></td>
+                  <td>10%（每天十分之一的人沒來）</td>
+                  <td><strong>2.5%</strong>（出勤率極度穩定）</td>
+                </tr>
+                <tr>
+                  <td><strong>每輛車生產成本</strong></td>
+                  <td>高（充滿重工、瑕疵與訓練成本）</td>
+                  <td><strong>大幅下降，公司利潤翻倍</strong></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="insight-note terra" style="margin-top: 18px;">
+              <strong>經濟學家的洞察：</strong>當工作需要高度團隊配合或高昂訓練成本時，「給高薪留住好人才」比「壓低薪水卻天天換新人」划算太多了！
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.7 (p.15–17 Table 1)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[labor-market-wage-and-price-setting]]</span>
+          <span class="wiki-tag">[[source-blanchard-chap-7]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: Natural Rate of Unemployment (Ch.7) -->
+    <section class="slide" data-title="05. 什麼是「自然失業率」？勞資雙方妥協的平衡點">
+      <div>
+        <span class="section-tag">第一章節｜勞動市場與薪資談判（第 7 章）</span>
+        <h1>什麼是「自然失業率」？勞資雙方妥協的平衡點</h1>
+        <div class="core-idea">
+          在中期，當<strong>「員工在該失業率下要求的真實薪水」</strong>剛好等於<strong>「老闆加價定價後願意給出的真實薪水」</strong>時，勞資雙方達成妥協不再互相抬價，這時的失業率就稱為<strong>自然失業率</strong>。
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">核心機制｜為什麼自然失業率不是零？</span>
+            <h3>需要一點失業率，才能讓薪資要求與售價平衡</h3>
+            <p style="margin-bottom: 10px;">
+              想像如果失業率是 0%（完全沒人失業）：每位員工都要求加薪 10%，但老闆為了保住利潤也把商品漲價 10%，結果真實購買力根本沒辦法同時滿足雙方！
+            </p>
+            <div class="formula">中期均衡：員工要求的真實薪水 ＝ 老闆願意給的真實薪水</div>
+            <p style="margin-top: 8px;">
+              唯有當市場上存在一個適度的失業率（例如 <strong>4%～5%</strong>），讓員工要求的薪資水準剛好符合企業定價結構時，物價才不會失控。
+            </p>
+          </div>
+
+          <div class="card">
+            <span class="card-label">政策與結構影響｜什麼會讓自然失業率改變？</span>
+            <h3>為什麼美國的自然失業率比歐洲低，且近年越來越低？</h3>
+            <ul>
+              <li><strong>企業壟斷加劇或油價大漲（利潤加成變高）</strong>：老闆抽走更多成數、願意給員工的實質薪水變少，就必須靠<strong>更高的自然失業率</strong>來迫使勞工接受低薪。</li>
+              <li><strong>為什麼美國自然失業率從 1980 年代的 6.5% 降到 4.5%？</strong>
+                <ol style="margin-top: 4px;">
+                  <li><strong>全球化競爭</strong>壓低了企業隨便漲價的空間；</li>
+                  <li><strong>人力派遣與求職網站普及</strong>縮短了找工作的摩擦時間；</li>
+                  <li><strong>人口高齡化</strong>：最常換工作、失業率最高的年輕人（16～24 歲）占勞動人口比例從 24% 降到 13%！</li>
+                </ol>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.7 (p.26–37) &amp; Ch.8 (p.41–45)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[labor-market-wage-and-price-setting]]</span>
+          <span class="wiki-tag">[[expectations-augmented-phillips-curve]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 6: Wage-Price Spiral & Phillips Curve (Ch.8) -->
+    <section class="slide" data-title="06. 短期失業率太低會發生什麼事？工資與物價的追逐螺旋">
+      <div>
+        <span class="section-tag">第二章節｜菲利浦曲線與通貨膨脹（第 8 章）</span>
+        <h1>短期失業率太低會發生什麼事？工資與物價的追逐螺旋</h1>
+        <div class="core-idea">
+          如果政府在短期硬把失業率壓到「自然失業率」以下（大缺工），員工要求加薪 ➔ 老闆漲價轉嫁 ➔ 員工發現便當變貴又要求更高薪水，就會引爆<strong>「工資—物價追逐螺旋」</strong>！
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">通膨動態公式｜附加預期的菲利浦曲線</span>
+            <h3>實際通膨 ＝ 預期通膨 − 敏感度 ×（實際失業率 − 自然失業率）</h3>
+            <div class="formula">本年通膨率 − 預期通膨率 ＝ − 敏感度 ×（實際失業率 − 自然失業率）</div>
+            <ul>
+              <li><strong>當實際失業率 ＜ 自然失業率（景氣過熱、大缺工）</strong>：<br>實際通膨會<strong>高於預期通膨</strong>（若大家參考去年通膨，今年通膨就會比去年<strong>加速飆高</strong>）！</li>
+              <li><strong>當實際失業率 ＞ 自然失業率（景氣冷卻、找工作難）</strong>：<br>員工不敢要求加薪，實際通膨會<strong>低於預期通膨</strong>（通膨降溫）。</li>
+              <li><strong>當實際失業率 ＝ 自然失業率</strong>：通膨率保持穩定不變。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">生活案例｜一條街看懂「工資—物價螺旋」</span>
+            <h3>為什麼加薪 10% 最後卻只換來物價漲 10%？</h3>
+            <ol>
+              <li><strong>第一棒（大缺工搶人）</strong>：政府狂撒錢刺激景氣，街上手搖飲店與便當店大缺工，老闆把店員時薪從 <strong>180 元搶標加到 210 元</strong>。</li>
+              <li><strong>第二棒（成本轉嫁漲價）</strong>：便當店老闆發現人事成本大增，立刻把排骨便當從 <strong>100 元調漲到 115 元</strong>。</li>
+              <li><strong>第三棒（預期心理發酵）</strong>：店員領到 210 元時薪本來很開心，買午餐時卻發現便當漲價了，於是預期明年物價還會漲，要求明年時薪加到 <strong>240 元</strong>⋯⋯通膨火車就此失速！</li>
+            </ol>
+            <div class="insight-note" style="margin-top: 10px;">
+              <strong>Gate 1 教材勘誤提醒：</strong>原始講義 Ch.8 p.21 曾將「失業率低於自然失業率」的不等號誤印為通膨下降，經課堂手寫修正與驗算，過熱時通膨必定<strong>上升</strong>！
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.8 (p.4–8, p.20–21)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[expectations-augmented-phillips-curve]]</span>
+          <span class="wiki-tag">[[source-blanchard-chap-8]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 7: Three Mutations of the Phillips Curve (Ch.8) -->
+    <section class="slide" data-title="07. 菲利浦曲線的三次變臉：為什麼「印鈔票救失業」會失靈？">
+      <div>
+        <span class="section-tag">第二章節｜菲利浦曲線與通貨膨脹（第 8 章）</span>
+        <h1>菲利浦曲線的三次變臉：為什麼「印鈔票救失業」會失靈？</h1>
+        <div class="core-idea">
+          1960 年代政府以為「只要忍受一點固定通膨，就能永遠換到低失業」；但 1970 年代大眾學聰明了，開始把去年通膨寫進今年的加薪要求裡，導致原本的抵換關係徹底消失！
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 22%;">歷史時期</th>
+              <th style="width: 26%;">大眾怎麼預測明年物價？</th>
+              <th style="width: 52%;">市場實際發生的結果與政策教訓</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>第一階段：1960 年代</strong><br>（黃金蜜月期）</td>
+              <td><strong>相信物價會維持在 0% 附近</strong><br>（因為二戰後通膨有正有負，平均接近零）</td>
+              <td><strong>「低失業對應高通膨水準」</strong>：談薪水時沒人擔心明年會通膨。政府發現把失業率壓低一點，通膨只會溫和上升到 3%～4%，誤以為找到了永久消滅失業的魔法。</td>
+            </tr>
+            <tr>
+              <td><strong>第二階段：1970～1995 年</strong><br>（預期脫錨與通膨失控）</td>
+              <td><strong>去年漲多少，就預期今年漲多少！</strong><br>（兩次石油危機讓通膨連年破 10%，沒人再信物價穩定）</td>
+              <td><strong>「低失業對應通膨每年不斷加速」</strong>：如果去年通膨 5%，員工起跳就要求加薪 5%！此時若政府還想把失業率壓在自然失業率（約 6.2%）以下，通膨不是停在 5%，而是<strong>第一年 6%、第二年 8%、第三年 12% 往上狂飆</strong>！</td>
+            </tr>
+            <tr>
+              <td><strong>第三階段：1996 年至今</strong><br>（央行信譽再錨定）</td>
+              <td><strong>堅信央行會把通膨控制在 2%</strong><br>（沃克強硬打通膨後，聯準會建立高度信譽）</td>
+              <td><strong>「曲線重回平穩且變得極平坦」</strong>：因為大眾相信長期通膨就是 2%，不再隨短期油價波動亂喊加薪，失業率與通膨水準的平穩關係再次重現（自然失業率降至約 5%）。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="insight-note terra">
+          <strong>工資指數化的危險放大器：</strong>如果法律規定「薪水每季自動照當期通膨調漲（工資指數化）」，那只要失業率稍微偏低，薪水跟物價就會在同一年內互相追逐十幾輪，瞬間引爆惡性通膨！
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.8 (p.9–25)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[expectations-augmented-phillips-curve]]</span>
+          <span class="wiki-tag">[[okuns-law-and-phillips-curve]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 8: Downward Nominal Wage Rigidity (Ch.8) -->
+    <section class="slide" data-title="08. 人性的薪資心理學：為什麼老闆不敢直接「扣名目薪水」？">
+      <div>
+        <span class="section-tag">第二章節｜菲利浦曲線與通貨膨脹（第 8 章）</span>
+        <h1>人性的薪資心理學：為什麼老闆不敢直接「扣名目薪水」？</h1>
+        <div class="core-idea">
+          1930 年代大蕭條時失業率高達 25%，為什麼物價沒有像模型預測那樣無止境暴跌？因為人類有強烈的<strong>「名目減薪抗拒心理（名目工資向下僵固性）」</strong>！
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">情境 A｜有溫和通膨的社會（通膨率 4%）</span>
+            <h3>帳面加薪 2% − 物價漲 4% ＝ 實質減薪 2%</h3>
+            <p style="margin-bottom: 12px;">
+              當公司今年營運比較辛苦時，老闆對員工說：「大家共體時艱，今年我們<strong>帳面薪水還是幫大家加薪 2%</strong>！」
+            </p>
+            <ul>
+              <li><strong>員工心理反應</strong>：雖然外面的便當漲了 4%（真實購買力其實默默縮水了 2%），但看到薪資單上的數字還是變多了，員工覺得可以接受，繼續安心上班。</li>
+              <li><strong>結果</strong>：企業順利降低了 2% 的實質人事成本，<strong>不需要裁員</strong>就度過了景氣寒冬！</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">情境 B｜零通膨或通縮的社會（通膨率 0%）</span>
+            <h3>帳面直接扣薪 2% − 物價漲 0% ＝ 實質減薪 2%</h3>
+            <p style="margin-bottom: 12px;">
+              數學上同樣是「真實購買力減少 2%」，但在零通膨下，老闆必須宣布：「今年物價沒漲，但公司要把大家<strong>帳面薪水直接砍掉 2%</strong>！」
+            </p>
+            <ul>
+              <li><strong>員工心理反應</strong>：員工覺得受到羞辱、士氣崩潰、罷工抗議甚至怠工（歐洲實證數據顯示，薪資調整在「0% 不減薪」處有極高的人數堆積）。</li>
+              <li><strong>結果</strong>：老闆不敢直接扣帳面薪水，為了省成本只好選擇<strong>直接裁員</strong>，害失業率變得更嚴重！</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="insight-note">
+          <strong>為什麼各國央行都把通膨目標定在「2%」而不是「0%」？</strong> 因為 2% 的溫和通膨就像勞動市場的「潤滑油」，能幫企業在不扣帳面薪水、不傷害員工尊嚴的情況下，溫和調整實質薪資成本！
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.8 (p.26–28, p.39–40 葡萄牙實證圖)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[expectations-augmented-phillips-curve]]</span>
+          <span class="wiki-tag">[[inflation-and-price-indexes]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 9: Convergence from Short to Medium Run (Ch.9) -->
+    <section class="slide" data-title="09. 從短期收斂到中期：央行的剎車與油門">
+      <div>
+        <span class="section-tag">第三章節｜從短期到中期整合模型（第 9 章）</span>
+        <h1>從短期收斂到中期：央行的剎車與油門</h1>
+        <div class="core-idea">
+          第 9 章把前幾章的短期需求（IS-LM）與中期通膨（菲利浦曲線）組合成完整的<strong>「短中期動態模型」</strong>：當短期景氣過熱引發通膨時，央行會踩剎車調高利率，帶領經濟回到中期的正常產能！
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">人體體溫比喻｜什麼是「產出缺口」與「自然利率」？</span>
+            <h3>短期可以喝提神飲料硬衝，中期必須回到 36.5 度正常體溫</h3>
+            <ul>
+              <li><strong>潛在產出（正常產能）</strong>：就像人體健康的 <strong>36.5 度體溫</strong>（對應失業率處於自然失業率）。</li>
+              <li><strong>短期景氣過熱（正產出缺口）</strong>：就像喝了提神飲料熬夜狂衝，短期產出衝破正常產能，但身體開始<strong>發高燒（通膨不斷上升）</strong>！</li>
+              <li><strong>央行踩剎車收斂回中期</strong>：為了退燒，央行逐步<strong>調高實質利率</strong>，讓企業減少借錢擴張，直到產出退回正常產能、通膨穩定在 2% 目標。這時不冷不熱的利率就叫做<strong>「自然實質利率（中性利率）」</strong>。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">歐肯法則的微觀秘密｜為什麼景氣好轉 1%，失業率只降 0.4%？</span>
+            <h3>企業的「囤積勞工」心理與重返職場潮</h3>
+            <p style="margin-bottom: 10px;">
+              在第 9 章的長期實證中，產出比正常成長多增加 1%，失業率卻不會 1 對 1 下降 1%，而是只下降 <strong>0.4%</strong>，原因有兩個：
+            </p>
+            <ol>
+              <li><strong>企業會「囤積勞工」</strong>：因為重新找人、訓練新人很貴，景氣小幅變差時老闆不會馬上裁員（只是減少加班）；景氣剛變好時老闆也先請現有員工加班，不會馬上照比例招新人。</li>
+              <li><strong>放棄找工作的人回來了</strong>：景氣變好時，原本在家休息的非勞動力紛紛出來投履歷，抵銷了一部分失業率的降幅！</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.9 (p.2–12)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[is-lm-pc-medium-run-and-supply-shocks]]</span>
+          <span class="wiki-tag">[[okuns-law-and-phillips-curve]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 10: Short Run vs Medium Run Policy Comparison 2 -->
+    <section class="slide" data-title="10. 政策效果大對比：為什麼降息與減支在「短期」與「中期」結局完全相反？">
+      <div>
+        <span class="section-tag">核心觀念對決｜短期政策效果 vs. 中期最終結局（第 9 章）</span>
+        <h1>政策效果大對比：為什麼降息與減支在「短期」與「中期」結局完全相反？</h1>
+        <div class="core-idea">
+          為什麼政治人物最喜歡在大選前要求央行印鈔降息？因為<strong>短期看得見景氣繁榮，中期才會發現產出根本沒變、只留下一地通貨膨脹</strong>！這張表幫你一次看懂兩大政策的短中期反差：
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 22%;">政府採取的政策</th>
+              <th style="width: 39%;">短期效果（1～2 年內：需求決定產出）</th>
+              <th style="width: 39%;">中期最終結局（3～10 年後：回到正常產能）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. 央行降息 / 多印鈔票</strong><br>（寬鬆貨幣政策）</td>
+              <td><strong style="color:var(--accent-navy);">★ 景氣繁榮、失業下降！</strong><br>借錢變便宜刺激企業投資與買房消費，總產出衝破正常產能，失業率掉到自然失業率以下。</td>
+              <td><strong style="color:var(--accent-terra);">★ 產出打回原形，100% 變成通膨！</strong><br>過熱引發通膨飆升，央行被迫把實質利率升回原點。中期產出與失業率完全不變，印鈔只換來更高的通膨（稱為<strong>「中期貨幣中立性」</strong>）。</td>
+            </tr>
+            <tr>
+              <td><strong>2. 政府減少支出 / 加稅</strong><br>（縮減財政赤字）</td>
+              <td><strong style="color:var(--accent-terra);">★ 景氣萎縮陣痛、失業上升！</strong><br>政府少發包工程或人民少花錢，若央行沒立刻降息，短期總需求下滑，引發經濟衰退。</td>
+              <td><strong style="color:var(--accent-navy);">★ 總產出回到正常，但民間投資大增！</strong><br>因通膨降溫，央行把自然利率調降到更低水準，刺激<strong>民間企業借錢投資，1 對 1 填補政府退出的缺口</strong>（把資源從政府讓給民間投資）。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="insight-note">
+          <strong>一句話記住短中期鐵律：</strong>貨幣政策在短期能救急，但在中期對真實產出「完全中立（只決定通膨）」；財政政策在中期雖不改變總產出大小，卻能改變「政府支出 vs. 民間投資」的分配比例！
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.9 (p.13–14, p.20–21)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[short-run-vs-medium-run-macro]]</span>
+          <span class="wiki-tag">[[is-lm-pc-medium-run-and-supply-shocks]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 11: Deflation Spiral & Stagflation + Interactive Widget (Ch.9) -->
+    <section class="slide" data-title="11. 兩大經濟噩夢：1929 通縮死亡螺旋 vs. 1970 停滯性通膨">
+      <div>
+        <span class="section-tag">第三章節｜當自動收斂失靈時的兩大危機（第 9 章）</span>
+        <h1>兩大經濟噩夢：1929 通縮死亡螺旋 vs. 1970 停滯性通膨</h1>
+        <div class="core-idea">
+          中期並非永遠一帆風順！當需求大崩盤遇上零利率下限，物價下跌會引爆<strong>「通縮死亡螺旋」</strong>；而當石油暴漲打擊供給面，則會縮小正常產能，引爆<strong>「既衰退又高通膨」的停滯性通膨</strong>。
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">互動體驗｜1929～1933 大蕭條「通縮死亡螺旋」計算機</span>
+            <h3>為什麼物價越跌，借錢的真實利息反而越貴？</h3>
+            <p style="font-size: 14px; margin-bottom: 8px;">
+              假設央行已把名目利率降到極低的 <strong>2.0%</strong>，請往左拉動滑桿讓經濟陷入通貨緊縮（物價下跌）：
+            </p>
+
+            <div class="calc-row">
+              <span>當年度物價漲跌幅（通膨／通縮）：</span>
+              <strong id="def-disp" style="color:var(--accent-terra); min-width:55px; text-align:right;">-10.0%</strong>
+            </div>
+            <input type="range" id="def-range" min="-12" max="4" step="0.5" value="-10" oninput="calcDeflation()" style="width:100%;" />
+
+            <div class="calc-result">
+              <div>
+                <div class="big-num" style="color:var(--text-ink);">2.0%</div>
+                <div class="small-lbl">名目借款利率</div>
+              </div>
+              <div>
+                <div class="big-num" id="d-inf">-10.0%</div>
+                <div class="small-lbl">物價漲跌幅</div>
+              </div>
+              <div>
+                <div class="big-num" id="d-real">+12.0%</div>
+                <div class="small-lbl">真實借款利率（名目 − 通膨）</div>
+              </div>
+            </div>
+
+            <p id="d-verdict" style="font-size: 13.5px; margin-top: 10px; line-height: 1.6;"></p>
+          </div>
+
+          <div class="card">
+            <span class="card-label">歷史實證與供給衝擊｜大蕭條數據 vs. 石油危機</span>
+            <h3>1932 年真實利息飆到 14.8%！</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>美國大蕭條年份</th>
+                  <th>失業率</th>
+                  <th>物價通縮率</th>
+                  <th>真實借款利率</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1929 年</strong></td>
+                  <td>3.2%</td>
+                  <td>0.0%</td>
+                  <td>5.3%</td>
+                </tr>
+                <tr>
+                  <td><strong>1931 年</strong></td>
+                  <td>15.9%</td>
+                  <td><strong style="color:var(--accent-terra);">-9.2%</strong></td>
+                  <td><strong>12.3%</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>1932 年</strong></td>
+                  <td><strong>23.6%</strong></td>
+                  <td><strong style="color:var(--accent-terra);">-10.8%</strong></td>
+                  <td><strong style="color:var(--accent-terra);">14.8%！</strong></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="insight-note" style="margin-top: 12px;">
+              <strong>另一種噩夢——1970 年代石油危機（停滯性通膨）：</strong>油價暴漲等同企業成本加成大增，直接把國家的「正常產能上限」壓低，導致經濟<strong>一邊萎縮裁員、一邊狂冒高通膨</strong>！
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.9 (p.15–19 Table 1, p.22–27)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[is-lm-pc-medium-run-and-supply-shocks]]</span>
+          <span class="wiki-tag">[[source-blanchard-chap-9]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 12: Long-Run Growth & PPP (Ch.10) -->
+    <section class="slide" data-title="12. 拉長到五十年看世界：為什麼不能直接用匯率比誰更有錢？">
+      <div>
+        <span class="section-tag">第四章節｜長期經濟成長的事實（第 10 章）</span>
+        <h1>拉長到五十年看世界：為什麼不能直接用匯率比誰更有錢？</h1>
+        <div class="core-idea">
+          當時間拉長到數十年（長期），景氣波動只是小浪花，<strong>長期經濟成長</strong>才是決定生活水準的主角（美國百年間人均購買力翻了 10 倍）。但跨國比較誰更有錢時，<strong>絕對不能直接用匯率換算</strong>，而必須用<strong>「購買力平價」</strong>！
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">為什麼匯率會騙人？｜剪頭髮與買麵包的價差</span>
+            <h3>低所得國家的「在地服務與食物」便宜太多了</h3>
+            <ul>
+              <li><strong>貿易財（如汽車、手機）</strong>：在全球市場買賣，美國跟俄羅斯賣的價格差不多。</li>
+              <li><strong>非貿易財（如理髮、餐廳外食、房租、當地食物）</strong>：在薪資較低的國家，這些在地服務與食物的價格遠比美國便宜！</li>
+              <li><strong>什麼是購買力平價（國際元）？</strong> 不要管匯率是多少，直接用<strong>「同一套美國物價標準」</strong>來重算各國人民手上的食物和商品值多少錢，才能看出真實生活水準！</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">教材經典算例｜美國 vs. 俄羅斯的真實生活水準（Ch.10 p.8）</span>
+            <h3>從「只有美國的 10%」大逆轉為「53.5%」！</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>消費項目</th>
+                  <th>美國人（美元）</th>
+                  <th>俄羅斯人（匯率法：1美元=60盧布）</th>
+                  <th>俄羅斯人（購買力平價：統一用美國物價算）</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>買汽車</strong></td>
+                  <td>買 1 台<br>＝ 10,000 美元</td>
+                  <td>買 0.07 台（4.2萬盧布）<br>＝ 700 美元</td>
+                  <td>0.07 台 × 1萬美元<br>＝ <strong>700 美元</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>一年食物</strong></td>
+                  <td>買 1 整籃<br>＝ 10,000 美元</td>
+                  <td>買 1 整籃（7.8萬盧布）<br>＝ 1,300 美元</td>
+                  <td>同樣吃 1 整籃食物<br>＝ <strong>10,000 美元</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>人均總消費</strong></td>
+                  <td><strong>20,000 美元</strong></td>
+                  <td><strong style="color:var(--accent-terra);">2,000 美元（僅美 10%）</strong></td>
+                  <td><strong style="color:var(--accent-navy);">10,700 美元（達美 53.5%！）</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.10 (p.4–9)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[economic-growth-ppp-and-happiness]]</span>
+          <span class="wiki-tag">[[source-blanchard-chap-10]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 13: Does Money Lead to Happiness? (Ch.10) -->
+    <section class="slide" data-title="13. 經濟成長能買到快樂嗎？破解「伊斯特林悖論」">
+      <div>
+        <span class="section-tag">第四章節｜長期經濟成長的事實（第 10 章）</span>
+        <h1>經濟成長能買到快樂嗎？破解「伊斯特林悖論」</h1>
+        <div class="core-idea">
+          經濟學家曾經以為「國家變富有並不會讓人民更快樂（伊斯特林悖論）」；但現代涵蓋全球 131 國的大數據研究證明：<strong>只要按「所得翻倍的比例」來衡量，錢確實買得到快樂，而且沒有飽和上限！</strong>
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">舊觀點（1974 年）｜伊斯特林悖論</span>
+            <h3>為什麼早期研究以為「國家變有錢沒用」？</h3>
+            <ul>
+              <li><strong>國內比較有效</strong>：在同一個國家裡，高收入者確實比低收入者快樂（因為跟鄰居比較的「相對地位」提升了）。</li>
+              <li><strong>跨國與跨時間看似無效？</strong> 早期學者把幾個富裕國家的平均所得畫在「一般算術刻度」上，發現人均 GDP 從 2 萬美元變成 4 萬美元時，快樂曲線好像變平了，因此宣稱「只要脫離貧窮，追求經濟成長不會增加快樂」。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">現代顛覆實證（2008 年）｜全球 131 國蓋洛普大調查</span>
+            <h3>關鍵在「翻倍比例（對數刻度）」：所得每翻一倍，快樂就穩定上升一階！</h3>
+            <ul>
+              <li><strong>人性對金錢的直覺是看「倍數」</strong>：對月薪 <strong>2 萬元</strong>的人來說，加薪 2 萬（變成 4 萬，翻一倍）帶來的快樂感；對月薪 <strong>20 萬元</strong>的人來說，需要加薪 20 萬（變成 40 萬，同樣翻一倍）才會有相同幅度的快樂提升！</li>
+              <li><strong>結論</strong>：當橫軸改用「人均購買力平價 GDP 的翻倍刻度（對數刻度）」時，無論是窮國、富國、跨國還是國內，<strong>所得與生活滿意度呈現一條完美向上的直線</strong>——經濟成長確實能持續提升人類福祉！</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.10 (p.10–19，Stevenson &amp; Wolfers 2008 實證)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[economic-growth-ppp-and-happiness]]</span>
+          <span class="wiki-tag">[[source-blanchard-chap-10]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 14: Two Millennia of Growth & Convergence (Ch.10) -->
+    <section class="slide" data-title="14. 人類兩千年經濟史：逃離馬爾薩斯陷阱與亞洲四小龍奇蹟">
+      <div>
+        <span class="section-tag">第四章節｜長期經濟成長的事實（第 10 章）</span>
+        <h1>人類兩千年經濟史：逃離馬爾薩斯陷阱與亞洲四小龍奇蹟</h1>
+        <div class="core-idea">
+          從羅馬帝國到西元 1500 年的整整一千五百年間，人類人均所得幾乎是<strong>「零成長」</strong>；直到工業革命引爆技術進步才打破魔咒，而二戰後的台灣等亞洲四小龍更上演了驚人的跨國追趕奇蹟！
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">歷史之謎｜為什麼人類被困了 1,500 年？</span>
+            <h3>馬爾薩斯陷阱：一有糧食就多生小孩，人均永遠吃不飽</h3>
+            <ul>
+              <li><strong>西元元年～1500 年（馬爾薩斯時期）</strong>：農業社會土地有限。每當農耕技術偶爾進步、糧食變多，嬰兒死亡率就會下降、人口等比例暴增，結果多出來的糧食全被多出來的人口吃光，<strong>人均所得永遠被打回生存底線（年成長率 0%）</strong>！</li>
+              <li><strong>1820 年工業革命至今</strong>：機器與科技進步的速度徹底甩開人口成長，人類才真正進入人均財富持續翻倍的現代社會。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">窮國能追上富國嗎？｜跨國收斂假說與台灣奇蹟</span>
+            <h3>為什麼台灣與日本追上了歐美，許多非洲國家卻沒有？</h3>
+            <ul>
+              <li><strong>成功追趕俱樂部（歐美日與亞洲四小龍）</strong>：因為資本少的地方投資報酬率高，1950 年越窮的 OECD 國家成長越快（日本年均成長 4.1%）。<strong>台灣、新加坡、香港、南韓（亞洲四小龍）</strong>人均 GDP 更從 1960 年僅美國的 <strong>18%</strong>，一路狂飆到 2009 年達美國的 <strong>83%</strong>！</li>
+              <li><strong>條件收斂（非洲困境的啟示）</strong>：許多非洲國家 1960 年很窮，五十年後卻更窮。這證明追趕不是自動發生的——必須具備<strong>穩定的法治、產權保護與基礎教育</strong>，後發國家才能發揮追趕威力！</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.10 (p.20–35)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[economic-growth-ppp-and-happiness]]</span>
+          <span class="wiki-tag">[[source-blanchard-chap-10]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 15: Solow Growth Model & Steady State (Ch.10-11) -->
+    <section class="slide" data-title="15. 索洛成長模型：為什麼一直買機器無法讓經濟永遠成長？">
+      <div>
+        <span class="section-tag">第五章節｜索洛成長模型與資本累積（第 10～11 章）</span>
+        <h1>索洛成長模型：為什麼一直買機器無法讓經濟永遠成長？</h1>
+        <div class="core-idea">
+          諾貝爾獎得主索洛（Robert Solow）發現了長期成長的第一條鐵律：因為機器設備具有<strong>「邊際報酬遞減」</strong>，而且機器每年都會壞掉折舊，<strong>單靠拼命存錢買機器，絕對無法讓國家永遠成長下去！</strong>
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">生活案例｜咖啡店一直買咖啡機會發生什麼事？</span>
+            <h3>邊際報酬遞減 vs. 折舊維修費直線上升</h3>
+            <p style="margin-bottom: 10px;">
+              假設店裡只有 <strong>1 名咖啡師</strong>：
+            </p>
+            <ul>
+              <li><strong>買第 1 台咖啡機</strong>：每天產量從 0 杯暴增到 <strong>100 杯</strong>！</li>
+              <li><strong>買第 2 台咖啡機</strong>：只有兩隻手，每天產量只微幅增加到 <strong>140 杯</strong>（增加的產量變少了，這就叫<strong>「資本邊際報酬遞減」</strong>）。</li>
+              <li><strong>塞滿 10 台咖啡機（穩態）</strong>：每台機器每年都有 10% 零件會壞掉（<strong>折舊</strong>）。當買到第 10 台時，每天賣咖啡存下來的新投資，<strong>剛好只夠付這 10 台機器的維修折舊費</strong>！從此店裡機器數量與產量再也不會增加，進入<strong>「長期穩態」</strong>。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="card-label">索洛模型核心公式｜人均資本的動態平衡</span>
+            <h3>當「新增投資 ＝ 機器折舊」，成長就停止了</h3>
+            <div class="formula">明年人均資本變動 ＝ 人均儲蓄投資 − 人均機器折舊</div>
+            <ul>
+              <li><strong>成長過渡期（機器還很少時）</strong>：國民存錢買的新機器 ＞ 壞掉的舊機器，人均資本與產出持續上升。</li>
+              <li><strong>長期穩態（機器已經很多時）</strong>：新買的機器 ＝ 壞掉的舊機器，人均資本停在穩態水準。</li>
+            </ul>
+            <div class="insight-note terra" style="margin-top: 12px;">
+              <strong>長期成長的唯一真神：</strong>既然買機器終究會撞上穩態天花板，國家怎樣才能永遠成長？唯有靠<strong>「持續的技術進步与創新」</strong>（例如發明全自動 AI 萃茶機，把整條生產力曲線往上推）！
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.10 (p.36–50) &amp; Ch.11 (p.2–17)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[solow-growth-model-and-golden-rule]]</span>
+          <span class="wiki-tag">[[source-blanchard-chap-11]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 16: Three Rules of Saving Rate & Post-WWII France (Ch.11) -->
+    <section class="slide" data-title="16. 儲蓄率的三大鐵律與二戰後法國的高速重建奇蹟">
+      <div>
+        <span class="section-tag">第五章節｜索洛成長模型與資本累積（第 11 章）</span>
+        <h1>儲蓄率的三大鐵律與二戰後法國的高速重建奇蹟</h1>
+        <div class="core-idea">
+          如果單靠存錢買機器無法改變「長期成長率」，那提高國家儲蓄率到底有什麼用？索洛模型給出了清楚的<strong>儲蓄率三大鐵律</strong>，並完美解釋了二戰後歐洲與日本的經濟奇蹟！
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">核心定理｜國家儲蓄率的三大鐵律</span>
+            <h3>不改變長期速度，但決定你最終站在多高的山峰！</h3>
+            <ol>
+              <li><strong>鐵律一（不影響長期成長率）</strong>：在沒有技術進步下，不管儲蓄率是 10% 還是 40%，達到穩態後的長期成長率永遠是 <strong>0%</strong>。</li>
+              <li><strong>鐵律二（決定長期富裕高度）</strong>：儲蓄率越高的國家，最終穩態的人均機器數量與<strong>人均所得水準越高</strong>！<br>
+                <span style="font-size:13.5px; color:var(--text-muted);">（Gate 1 勘誤修正：在教材標準模型下，儲蓄率翻 2 倍，穩態人均資本會變 <strong>4 倍</strong>、穩態人均產出變 <strong>2 倍</strong>；原講義 p.61 附錄誤將資本公式印成產出公式，已於知識庫修正。）</span>
+              </li>
+              <li><strong>鐵律三（創造數十年的過渡期高成長）</strong>：從低儲蓄邁向高儲蓄穩態的過程中，會帶來長達二、三十年的高速追趕成長！</li>
+            </ol>
+          </div>
+
+          <div class="card">
+            <span class="card-label">歷史實證故事｜1946～1950 二戰後法國重建奇蹟</span>
+            <h3>為什麼戰爭炸毀工廠，戰後經濟成長率反而飆到 9.6%？</h3>
+            <p style="margin-bottom: 10px;">
+              第二次世界大戰期間，法國損失慘重：全國 <strong>20% 的住宅被毀、65% 的鐵路貨車被炸毀、30% 的工廠資本存量消失</strong>。
+            </p>
+            <ul>
+              <li><strong>索洛模型的精準預測</strong>：因為法國的人均勞工素質與技術還在，但人均資本（機器與橋樑）突然掉到遠低於穩態的谷底。</li>
+              <li>此時每一分新增投資的邊際報酬率極高、且遠大於折舊，使法國在 <strong>1946～1950 年間創下每年平均 9.6% 的驚人實質 GDP 成長率</strong>（短短 5 年總產出暴增 58%），迅速追回戰前穩態軌跡！</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.11 (p.14–26, p.40–46, p.60–61)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[solow-growth-model-and-golden-rule]]</span>
+          <span class="wiki-tag">[[source-blanchard-chap-11]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 17: Golden Rule of Capital + Interactive Simulator + Save More Tomorrow (Ch.11) -->
+    <section class="slide" data-title="17. 存越多錢越好嗎？資本黃金法則與「明天存更多」計畫">
+      <div>
+        <span class="section-tag">第五章節｜索洛成長模型與行為經濟學（第 11 章）</span>
+        <h1>存越多錢越好嗎？資本黃金法則與「明天存更多」計畫</h1>
+        <div class="core-idea">
+          我們辛苦工作的目的是為了<strong>「消費享受（吃美食、住好房）」</strong>，而不是為了看工廠塞滿機器！如果把 100% 收入都拿去買機器，人民消費是零；唯有把儲蓄率定在<strong>「黃金法則（50%）」</strong>，長期人民能享受到的消費才會最高！
+        </div>
+
+        <div class="split-2">
+          <div class="card">
+            <span class="card-label">互動模擬器｜找出讓人民吃最多果實的「黃金法則儲蓄率」</span>
+            <h3>拉動國家儲蓄率，觀察穩態產出、折舊與人民消費</h3>
+            <p style="font-size: 13.8px; margin-bottom: 6px;">
+              依教材數值模型（折舊率 10%），請拉動滑桿改變國家儲蓄率：
+            </p>
+
+            <div class="calc-row">
+              <span>國家儲蓄率（存下來買機器的比例）：</span>
+              <strong id="save-disp" style="color:var(--accent-terra); min-width:50px; text-align:right;">50%</strong>
+            </div>
+            <input type="range" id="save-range" min="10" max="90" step="10" value="50" oninput="calcGolden()" style="width:100%;" />
+
+            <div class="calc-result">
+              <div>
+                <div class="big-num" style="color:var(--text-ink);" id="g-out">5.0</div>
+                <div class="small-lbl">穩態人均產出</div>
+              </div>
+              <div>
+                <div class="big-num" style="color:var(--text-muted);" id="g-dep">-2.5</div>
+                <div class="small-lbl">每年修機器折舊費</div>
+              </div>
+              <div>
+                <div class="big-num" id="g-con">2.50 ★</div>
+                <div class="small-lbl">人民真實消費（產出−折舊）</div>
+              </div>
+            </div>
+
+            <p id="g-verdict" style="font-size: 13.5px; margin-top: 10px; line-height: 1.6;"></p>
+          </div>
+
+          <div class="card">
+            <span class="card-label">為什麼美國人存太少錢？｜跨代兩難與諾貝爾獎妙招</span>
+            <h3>用「明天存更多」計畫克服人性的短視！</h3>
+            <ul>
+              <li><strong>現實國家大多儲蓄不足（如美國家庭儲蓄率僅約 6%）</strong>：因為提高儲蓄率要讓當代人先少花錢、幾十年後子孫才享福（而未來子孫現在沒有投票權），加上政府有退休金制度，大家更不想自己存錢。</li>
+              <li><strong>諾貝爾獎得主 Richard Thaler 的行為經濟學妙招——「明天存更多」計畫</strong>：
+                <br>直接叫員工「從這個月開始少花錢存退休金」，大家覺得像被扣薪水，沒人願意參加；但改成讓員工簽約同意<strong>「以後每次加薪時，自動把加薪幅度的一部分轉入退休儲蓄」</strong>，結果參與員工的儲蓄率在 4 次加薪後從 <strong>3.5% 暴增到 13.6%</strong>！</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：Blanchard Ch.11 (p.27–37, p.47 Table 11.1)</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[solow-growth-model-and-golden-rule]]</span>
+          <span class="wiki-tag">[[source-blanchard-chap-11]]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 18: Grand Synthesis Across Short, Medium, and Long Run -->
+    <section class="slide" data-title="18. 終極大貫通：把「短期、中期、長期」放在同一張表看懂總體經濟！">
+      <div>
+        <span class="section-tag">全篇總結｜打通第 2 章至第 11 章的任督二脈</span>
+        <h1>終極大貫通：把「短期、中期、長期」放在同一張表看懂總體經濟！</h1>
+        <div class="core-idea">
+          學完前 11 章，你已經掌握了經濟學家看世界的完整立體眼鏡！以初學者最常問的<strong>「大家多存錢對國家到底是好是壞？」</strong>與<strong>「央行印鈔票有什麼用？」</strong>為例，三個時間維度給出了完美銜接的答案：
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 18%;">時間維度</th>
+              <th style="width: 24%;">誰決定經濟產出？<br>（核心模型）</th>
+              <th style="width: 29%;">如果全民決定「多存錢、少花錢」？<br>（儲蓄率上升的跨期大對決）</th>
+              <th style="width: 29%;">如果央行決定「降息印鈔票」？<br>（貨幣政策的跨期效果）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>短期</strong><br>（1～2 年內）<br><em>第 3～6 章</em></td>
+              <td><strong>總需求決定</strong><br>（價格僵固，客人買多少就做多少）</td>
+              <td><strong style="color:var(--accent-terra);">★ 害慘短期景氣（節儉矛盾）！</strong><br>大家不上館子消費，店家營收暴跌裁員，國民總所得縮水，結果全社會存下來的總金額反而沒增加。</td>
+              <td><strong style="color:var(--accent-navy);">★ 強效提振景氣！</strong><br>借錢變便宜刺激企業投資與買房，總產出上升、失業率立刻下降（除非掉入零利率流動性陷阱）。</td>
+            </tr>
+            <tr>
+              <td><strong>中期</strong><br>（3～10 年）<br><em>第 7～9 章</em></td>
+              <td><strong>正常產能與勞動制度決定</strong><br>（薪水與物價充分調整）</td>
+              <td><strong style="color:var(--accent-navy);">★ 央行降息搭橋，把儲蓄變投資！</strong><br>因消費減少使通膨降溫，央行調降自然利率，刺激<strong>企業借錢買機器投資</strong>，總產出回到正常產能。</td>
+              <td><strong style="color:var(--accent-terra);">★ 產出打回原形，100% 變通膨！</strong><br>過熱引發工資物價螺旋，央行被迫把實質利率升回原點。印鈔在中期無法增加產出（貨幣中立性）。</td>
+            </tr>
+            <tr>
+              <td><strong>長期</strong><br>（10～50 年）<br><em>第 10～11 章</em></td>
+              <td><strong>資本、教育與技術決定</strong><br>（索洛成長模型與人力資本）</td>
+              <td><strong style="color:var(--accent-navy);">★ 墊高國家富裕天花板！</strong><br>長年累積的企業投資與教育（人力資本）變成更多晶圓廠與高技能人才，把國家的穩態富裕水準往上推！</td>
+              <td><strong>無關長期實質成長</strong><br>長期持續成長唯一只能靠<strong>「技術進步、科學研發與制度創新」</strong>來打破邊際報酬遞減！</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="slide-footer">
+        <span>資料來源：綜合 Blanchard Ch.2～Ch.11 全系列講義與知識庫跨頁合成</span>
+        <div>
+          對應知識庫節點：
+          <span class="wiki-tag">[[saving-short-run-paradox-vs-long-run-growth]]</span>
+          <span class="wiki-tag">[[short-run-vs-medium-run-macro]]</span>
+          <span class="wiki-tag">[[overview]]</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const indicator = document.getElementById('page-indicator');
+    let current = 0;
+    let isEditing = false;
+
+    function showSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= slides.length) index = slides.length - 1;
+      current = index;
+      slides.forEach((s, i) => s.classList.toggle('active', i === current));
+      indicator.textContent = `${current + 1} / ${slides.length}`;
+      document.getElementById('toc-overlay').classList.remove('open');
+    }
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+    function toggleTOC() {
+      document.getElementById('toc-overlay').classList.toggle('open');
+    }
+
+    // Direct In-Browser Edit Mode Toggle
+    function toggleEditMode() {
+      isEditing = !isEditing;
+      document.body.classList.toggle('editing', isEditing);
+      const btn = document.getElementById('edit-toggle-btn');
+      btn.classList.toggle('active-edit', isEditing);
+      btn.textContent = isEditing ? '✓ 完成編輯' : '✎ 編輯文字';
+
+      const editableSelectors = '.slide h1, .slide h3, .slide p, .slide li, .slide td, .slide th, .slide .section-tag, .slide .card-label, .slide .formula, .slide .insight-note';
+      document.querySelectorAll(editableSelectors).forEach(el => {
+        if (isEditing) {
+          el.setAttribute('contenteditable', 'true');
+        } else {
+          el.removeAttribute('contenteditable');
+        }
+      });
+    }
+
+    // Export / Download the Edited HTML File
+    function downloadEditedHTML() {
+      const wasEditing = isEditing;
+      if (wasEditing) toggleEditMode();
+
+      const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'slides-ch7-11.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      if (wasEditing) toggleEditMode();
+    }
+
+    // Populate TOC
+    const tocGrid = document.getElementById('toc-grid');
+    slides.forEach((s, i) => {
+      const item = document.createElement('div');
+      item.className = 'toc-link';
+      item.innerHTML = `<span>${s.dataset.title}</span><span style="color:var(--text-muted); font-family:Georgia,serif;">p.${i + 1}</span>`;
+      item.onclick = () => showSlide(i);
+      tocGrid.appendChild(item);
+    });
+
+    // Keyboard Navigation (Disabled when typing inside an editable element)
+    window.addEventListener('keydown', (e) => {
+      if (isEditing && document.activeElement && document.activeElement.isContentEditable) {
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Escape') {
+        document.getElementById('toc-overlay').classList.remove('open');
+      }
+    });
+
+    // Interactive #1: Slide 11 Deflation Spiral Calculator
+    function calcDeflation() {
+      const inf = parseFloat(document.getElementById('def-range').value);
+      const nom = 2.0;
+      const real = nom - inf;
+
+      document.getElementById('def-disp').textContent = `${inf > 0 ? '+' : ''}${inf.toFixed(1)}%`;
+      document.getElementById('d-inf').textContent = `${inf > 0 ? '+' : ''}${inf.toFixed(1)}%`;
+      document.getElementById('d-real').textContent = `${real > 0 ? '+' : ''}${real.toFixed(1)}%`;
+
+      const verdict = document.getElementById('d-verdict');
+      if (inf < -2) {
+        verdict.innerHTML = `<strong>陷入「通縮死亡螺旋」！</strong> 雖然央行把名目利率壓到 2.0%，但因為物價暴跌 ${Math.abs(inf).toFixed(1)}%，借錢的真實負擔反而飆高到 <strong>+${real.toFixed(1)}%</strong>，害沒有任何企業敢借錢投資，經濟進一步崩盤！`;
+      } else if (inf < 0) {
+        verdict.innerHTML = `<strong>輕微通貨緊縮：</strong> 物價下跌 ${Math.abs(inf).toFixed(1)}%，使真實借款利率自動墊高至 <strong>+${real.toFixed(1)}%</strong>，抵銷了央行的降息效果。`;
+      } else {
+        verdict.innerHTML = `<strong>正常溫和通膨（+${inf.toFixed(1)}%）：</strong> 真實借款利率降至 <strong>${real > 0 ? '+' : ''}${real.toFixed(1)}%</strong>，央行降息能順利刺激企業借錢投資，帶領經濟回到中期正常產能！`;
+      }
+    }
+    calcDeflation();
+
+    // Interactive #2: Slide 17 Solow Golden Rule Simulator (alpha = 0.5, delta = 0.1)
+    function calcGolden() {
+      const sPct = parseInt(document.getElementById('save-range').value, 10);
+      const s = sPct / 100;
+      const delta = 0.1;
+      // For y = k^0.5: k* = (s / delta)^2, y* = s / delta, dep* = delta * k* = s^2 / delta, c* = y* - dep*
+      const yStar = s / delta;
+      const depStar = (s * s) / delta;
+      const cStar = yStar - depStar;
+
+      document.getElementById('save-disp').textContent = `${sPct}%`;
+      document.getElementById('g-out').textContent = yStar.toFixed(1);
+      document.getElementById('g-dep').textContent = `-${depStar.toFixed(1)}`;
+      document.getElementById('g-con').textContent = sPct === 50 ? `${cStar.toFixed(2)} ★最高` : cStar.toFixed(2);
+
+      const verdict = document.getElementById('g-verdict');
+      if (sPct === 50) {
+        verdict.innerHTML = `<strong>★ 達到「資本黃金法則（儲蓄率 50%）」！</strong> 此時穩態產出為 5.0，扣掉機器折舊 2.5 後，留給人民享用的長期消費達到最高峰 <strong>2.50</strong>！`;
+      } else if (sPct < 50) {
+        verdict.innerHTML = `<strong>儲蓄不足（低於黃金法則）：</strong> 雖然存錢少，但機器太少導致穩態產出只有 ${yStar.toFixed(1)}，扣掉折舊後人民長期消費僅 <strong>${cStar.toFixed(2)}</strong>（低於黃金法則的 2.50）。`;
+      } else {
+        verdict.innerHTML = `<strong>儲蓄過度（動態無效率）：</strong> 工廠買了太多機器，雖然產出高達 ${yStar.toFixed(1)}，但每年光是修機器的折舊費就吃掉 ${depStar.toFixed(1)}，留給人民的消費反而只剩 <strong>${cStar.toFixed(2)}</strong>！此時少存一點錢，大家現在跟未來都能吃得更好！`;
+      }
+    }
+    calcGolden();
+  </script>
+</body>
+</html>
